@@ -1,0 +1,13 @@
+---
+import Navbar from "../layouts/nav.astro";
+import SearchPage from "../components/search.vue";
+import uvImage from "../assets/pics/uv.webp";
+import scramjetImage from "../assets/pics/scramjet.webp";
+---
+
+<Navbar>
+  <SearchPage uvimg={uvImage.src} sjimg={scramjetImage.src} client:only />
+</Navbar>
+
+<script src="/uv/uv.bundle.js" defer></script>
+<script src="/uv/uv.config.js" defer></script>

@@ -1,0 +1,9 @@
+---  
+export const prerender = false;
+import "../../assets/global.css";
+import LoadingScreen from '../../components/loader.astro';
+const url = Astro.url.pathname.substring(7);
+---
+
+<LoadingScreen />
+<iframe src={url} class="w-screen h-screen absolute z-10"></iframe>
