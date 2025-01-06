@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { reactive } from "vue";
-import { search, proxy, scramjet } from "../assets/stuff";
+import { scramjet } from "../assets/proxy.ts";
+import { search, defaultConfig } from "../assets/stuff.ts";
 
 const props = defineProps({
   uvimg: String,
   sjimg: String,
 });
 
-console.log(props)
-
 const data = reactive({
   text: "",
 });
+
+const proxy = localStorage.getItem("proxy") || defaultConfig.proxy;
 
 function go() {
   const url = search(data.text);
@@ -28,8 +29,7 @@ function go() {
   <div>
     <div class="flex justify-center p-5">
       <img v-if="proxy === 'uv'" :src="props.uvimg" alt="uv logo" style="width: 20%; height: 20%" />
-      <img v-if="proxy === 'scramjet'" :src="props.sjimg" alt="scramjet logo"
-        style="width: 30%; height: 30%" />
+      <img v-if="proxy === 'scramjet'" :src="props.sjimg" alt="scramjet logo" style="width: 30%; height: 30%" />
     </div>
     <div class="flex justify-center">
       <form @submit.prevent="go">

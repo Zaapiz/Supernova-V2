@@ -1,7 +1,3 @@
-interface Zaraz {
-  track: (event: string, data: { path: string; title: string }) => void;
-}
-
 interface ScramjetControllerOptions {
   prefix: string;
   files: {
@@ -15,7 +11,7 @@ interface ScramjetControllerOptions {
 
 declare global {
   interface Window {
-    zaraz?: Zaraz;
+    iframeurl: string;
   }
 
   declare const __uv$config: {

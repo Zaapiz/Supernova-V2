@@ -1,0 +1,17 @@
+services:
+  supernova:
+    restart: always
+    build:
+      context: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    restart: always
+    image: mongo
+    volumes:
+      - mongodb:/usr/src/app
+volumes:
+  mongodb:

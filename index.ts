@@ -1,7 +1,5 @@
 import "dotenv/config";
 import express from "express";
-// @ts-ignore
-import { handler as ssrHandler } from "./dist/server/entry.mjs";
 import proxy from "express-http-proxy";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 // import session from "express-session";
@@ -14,6 +12,8 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { Socket } from "node:net";
 import { createServer } from "node:http";
 import { hostname } from "node:os";
+import path from "node:path";
+import url from "node:url";
 import wisp from "wisp-server-node";
 
 // import { mongoStore } from "./server/mongo.js";
@@ -46,7 +46,21 @@ app.use(ExpressMongoSanitize());
 //   });
 // }
 
-app.use(express.static("dist/client/"));
+const currentDir = url.fileURLToPath(new URL('.', import.meta.url));
+let ssrHandler;
+
+const loadHandler = async () => {
+  const importPath = currentDir.includes('/dist') 
+    ? './astro/server/entry.mjs'  // When running from /dist
+    : './dist/astro/server/entry.mjs';  // When running from root
+    
+  const module = await import(importPath);
+  ssrHandler = module.handler;
+};
+
+await loadHandler();
+
+app.use(express.static("dist/astro/client/"));
 app.use("/uv/", express.static(uvPath));
 app.use("/scramjet/", express.static("scramjet"));
 app.use("/epoxy/", express.static(epoxyPath));
@@ -61,7 +75,11 @@ app.use(
   })
 );
 
-app.use(ssrHandler);
+if (ssrHandler) {
+  app.use(ssrHandler);
+} else {
+  console.error("SSR handler is not defined");
+}
 
 app.get("*", (req: express.Request, res: express.Response) => {
   res.redirect("/");

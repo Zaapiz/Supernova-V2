@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import settingsImage from "../assets/pics/settings.webp";
 import "../assets/global.css";
+const forumEnabled = process.env.FORUM === 'true';
 ---
 
 <html lang="en">
@@ -41,10 +42,19 @@ import "../assets/global.css";
           >
             Games
           </a>
+          {
+            forumEnabled && (
+              <a
+                class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+                href="/forum"
+              >
+                Forum
+              </a>
+            )
+          }
         </div>
-        <!-- <a v-if="store.config.forum" class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-              href="/forum">Forum</a>
-            <a v-if="store.config.ai" class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+
+        <!--  <a v-if="store.config.ai" class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
               href="/ai">
               AI
             </a>
@@ -75,3 +85,15 @@ import "../assets/global.css";
 
   <slot />
 </html>
+
+<script>
+  import { setFavicon } from "../assets/stuff";
+
+  function titlestuff() {
+    const title = localStorage.getItem("title") || "Google";
+    const icon = localStorage.getItem("icon") || "/pics/favicon/google.ico";
+    document.title = title;
+    setFavicon(icon);
+  }
+  titlestuff();
+</script>

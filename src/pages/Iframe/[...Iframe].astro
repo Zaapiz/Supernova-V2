@@ -1,9 +1,34 @@
----  
+---
 export const prerender = false;
 import "../../assets/global.css";
-import LoadingScreen from '../../components/loader.astro';
-const url = Astro.url.pathname.substring(7);
+import LoadingScreen from "../../components/loader.astro";
+const url = Astro.url.pathname.substring(7) + Astro.url.search;
 ---
 
 <LoadingScreen />
-<iframe src={url} class="w-screen h-screen absolute z-10"></iframe>
+<iframe id="iframe" class="w-screen h-screen absolute z-10"></iframe>
+
+<script>
+  import { setFavicon, defaultConfig } from "../../assets/stuff.ts";
+  import { initTransport } from "../../assets/proxy.ts";
+
+  const title = localStorage.getItem("title") || "Google";
+  const icon = localStorage.getItem("icon") || "/pics/favicon/google.ico";
+  document.title = title;
+  setFavicon(icon);
+
+  async function go() {
+    await initTransport(
+      localStorage.getItem("transport") || defaultConfig.transport
+    );
+    const iframe = document.getElementById("iframe") as HTMLIFrameElement;
+    if (iframe) {
+      iframe.src = window.iframeurl;
+    }
+  }
+  go();
+</script>
+
+<script is:inline define:vars={{ url }}>
+  window.iframeurl = url;
+</script>

@@ -1,0 +1,8 @@
+---
+import Navbar from "../layouts/nav.astro";
+import GamesPage from "../components/games.vue";
+---
+
+<Navbar>
+  <GamesPage client:only="vue" />
+</Navbar>
