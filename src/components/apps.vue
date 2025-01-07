@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { scramjet } from '../assets/proxy';
 
 interface App {
   alt: string;
@@ -9,6 +8,17 @@ interface App {
   img: string;
 }
 
+const loadScramjet = async () => {
+  try {
+    const module = await import("../assets/search.ts");
+    return module.scramjet;
+  } catch (error) {
+    console.error("Failed to load search module:", error);
+    return null;
+  }
+};
+
+let scramjet: null | ScramjetController;
 const items = ref<App[]>([]);
 
 async function fetchStuff() {
@@ -24,13 +34,17 @@ function go(url: string, type: string) {
   if (type == "uv") {
     window.location.href = "/Iframe" + __uv$config.prefix + __uv$config.encodeUrl(url);
   } else if (type == "scramjet") {
-    window.location.href = "/Iframe" + scramjet.encodeUrl(url);
+    if (scramjet) {
+      window.location.href = "/Iframe" + scramjet.encodeUrl(url);
+    } else {
+      console.error("scramjet is null");
+    }
   } else {
     window.location.href = "/Iframe" + url;
   }
 }
-
-onMounted(() => {
+onMounted(async () => {
+  scramjet = await loadScramjet();
   fetchStuff();
 });
 </script>

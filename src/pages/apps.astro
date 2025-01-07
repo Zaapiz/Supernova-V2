@@ -4,14 +4,14 @@ import AppsPage from "../components/apps.vue";
 ---
 
 <Navbar>
-  <AppsPage client:only="vue" />
+  <AppsPage client:load />
 </Navbar>
 
 <script is:inline src="/uv/uv.bundle.js" defer></script>
 <script is:inline src="/uv/uv.config.js" defer></script>
 
 <script>
-  import { scramjet } from "../assets/proxy";
+  import { scramjet } from "../assets/search.ts";
 
   function startSW() {
     try {

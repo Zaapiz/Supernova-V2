@@ -1,7 +1,24 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-import { scramjet } from "../assets/proxy.ts";
+import { reactive, onMounted } from "vue";
 import { search, defaultConfig } from "../assets/stuff.ts";
+
+const loadScramjet = async () => {
+  try {
+    const module = await import("../assets/search.ts");
+    return module.scramjet;
+  } catch (error) {
+    console.error("Failed to load search module:", error);
+    return null;
+  }
+};
+
+let scramjet: null | ScramjetController;
+
+onMounted(async () => {
+  data.proxy = localStorage.getItem("proxy") || defaultConfig.proxy;
+  scramjet = await loadScramjet();
+});
+
 
 const props = defineProps({
   uvimg: String,
@@ -10,16 +27,19 @@ const props = defineProps({
 
 const data = reactive({
   text: "",
+  proxy: "",
 });
-
-const proxy = localStorage.getItem("proxy") || defaultConfig.proxy;
 
 function go() {
   const url = search(data.text);
-  if (proxy === "uv") {
+  if (data.proxy === "uv") {
     window.location.href = "/Iframe" + __uv$config.prefix + __uv$config.encodeUrl(url);
-  } else if (proxy === "scramjet") {
-    window.location.href = "/Iframe" + scramjet.encodeUrl(url);
+  } else if (data.proxy === "scramjet") {
+    if (scramjet) {
+      window.location.href = "/Iframe" + scramjet.encodeUrl(url);
+    } else {
+      console.error("scramjet is null");
+    }
   } else {
     window.location.href = "/Iframe" + url;
   }
@@ -28,8 +48,8 @@ function go() {
 <template>
   <div>
     <div class="flex justify-center p-5">
-      <img v-if="proxy === 'uv'" :src="props.uvimg" alt="uv logo" style="width: 20%; height: 20%" />
-      <img v-if="proxy === 'scramjet'" :src="props.sjimg" alt="scramjet logo" style="width: 30%; height: 30%" />
+      <img v-if="data.proxy === 'uv'" :src="props.uvimg" alt="uv logo" style="width: 20%; height: 20%" />
+      <img v-if="data.proxy === 'scramjet'" :src="props.sjimg" alt="scramjet logo" style="width: 30%; height: 30%" />
     </div>
     <div class="flex justify-center">
       <form @submit.prevent="go">

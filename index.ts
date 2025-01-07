@@ -12,7 +12,6 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { Socket } from "node:net";
 import { createServer } from "node:http";
 import { hostname } from "node:os";
-import path from "node:path";
 import url from "node:url";
 import wisp from "wisp-server-node";
 

@@ -9,8 +9,8 @@ const url = Astro.url.pathname.substring(7) + Astro.url.search;
 <iframe id="iframe" class="w-screen h-screen absolute z-10"></iframe>
 
 <script>
-  import { setFavicon, defaultConfig } from "../../assets/stuff.ts";
-  import { initTransport } from "../../assets/proxy.ts";
+  import { setFavicon, defaultConfig } from "../../assets/stuff";
+  import { initTransport } from "../../assets/search";
 
   const title = localStorage.getItem("title") || "Google";
   const icon = localStorage.getItem("icon") || "/pics/favicon/google.ico";
