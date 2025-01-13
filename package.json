@@ -23,6 +23,8 @@
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "@tomphttp/bare-server-node": "^2.0.5",
     "@tsconfig/node22": "^22.0.0",
+    "@tsparticles/basic": "^3.7.1",
+    "@tsparticles/engine": "^3.7.1",
     "@types/express": "^5.0.0",
     "@types/express-http-proxy": "^1.6.6",
     "astro": "^5.1.3",

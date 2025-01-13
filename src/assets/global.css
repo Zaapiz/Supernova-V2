@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 body {
-  background-image: url("./pics/space.webp");
-  background-size: 100%;
+  /* background-image: url("./pics/space.webp");
+  background-size: 100%; */
   background-color: rgb(0,0,0);
 }
 

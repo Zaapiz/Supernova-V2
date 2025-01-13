@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import settingsImage from "../assets/pics/settings.webp";
 import "../assets/global.css";
-const forumEnabled = process.env.FORUM === 'true';
+const forumEnabled = process.env.FORUM === "true";
 ---
 
 <html lang="en">
@@ -81,12 +81,12 @@ const forumEnabled = process.env.FORUM === 'true';
         </a>
       </div>
     </nav>
+    <slot />
   </body>
-
-  <slot />
 </html>
 
 <script>
+  import { startParticles } from "../assets/particles";
   import { setFavicon } from "../assets/stuff";
 
   function titlestuff() {
@@ -95,5 +95,6 @@ const forumEnabled = process.env.FORUM === 'true';
     document.title = title;
     setFavicon(icon);
   }
+  startParticles();
   titlestuff();
 </script>

@@ -1,8 +1,12 @@
 ---
 import Navbar from "../layouts/nav.astro";
-import GamesPage from "../components/games.vue";
+import SearchGames from "../components/games/SearchGames.vue";
+import ListGames from "../components/games/ListGames.vue";
+import GamesPaging from "../components/games/GamesPaging.vue";
 ---
 
 <Navbar>
-  <GamesPage client:load />
+  <!-- <SearchGames client:load />
+  <ListGames client:load />
+  <GamesPaging client:visible /> -->
 </Navbar>
