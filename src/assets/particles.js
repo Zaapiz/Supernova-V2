@@ -9,7 +9,7 @@ import { tsParticles, MoveDirection, OutMode } from "@tsparticles/engine";
 export async function startParticles() {
   const options = {
     background: {
-      color: { value: "#00000" },
+      color: { value: "#000000" },
     },
     fullScreen: {
       enable: true,

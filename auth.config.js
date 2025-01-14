@@ -9,13 +9,13 @@ export default defineConfig({
   providers: [
     Credentials({
       credentials: {
-        user: { label: "user" },
-        password: { label: "password", type: "password" },
+        user: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" }
       },
-      async authorize({ request }) {
-        console.log(request)
+      async authorize(credentials) { 
+        console.log(credentials) 
+        return credentials.user ? { id: "1", name: credentials.user } : null
       },
     }),
   ],
-  secret: "1"
 });
