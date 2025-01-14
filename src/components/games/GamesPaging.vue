@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, onMounted, computed } from "vue";
+import {page, items, totalPages} from "./Games"
 </script>
 
 <template>

@@ -1,38 +1,7 @@
 <script setup lang="ts">
-import { reactive, onMounted, computed, ref } from "vue";
+import { ref } from "vue";
+import {page, dropdown, items, select, filteredResults} from "./Games"
 const searchInput = ref(null);
-
-const DEFAULT_PARAMS = {
-  search: '',
-  page: '1'
-};
-
-const items = reactive({
-  search: "",
-  inputFocused: false,
-  dropdown: false,
-  urlParams: {
-    search: DEFAULT_PARAMS.search,
-    page: parseInt(DEFAULT_PARAMS.page)
-  },
-})
-
-const dropdown = computed(() => {
-  return filteredResults.value.length && (items.inputFocused || items.dropdown);
-});
-
-function setParams(search: string, page: number) {
-  if (typeof window === 'undefined') return;
-
-  const urlParams = new URLSearchParams(window.location.search);
-  urlParams.set('page', page.toString());
-  urlParams.set('search', search);
-  window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-  items.urlParams = {
-    search: search,
-    page: page
-  };
-}
 
 function handleEnterKey() {
   page(0)
@@ -42,13 +11,6 @@ function handleEnterKey() {
   }
 }
 
-onMounted(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  items.urlParams = {
-    search: urlParams.get('search') || DEFAULT_PARAMS.search,
-    page: parseInt(urlParams.get('page') || DEFAULT_PARAMS.page)
-  };
-});
 </script>
 
 <template>
