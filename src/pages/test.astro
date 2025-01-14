@@ -1,0 +1,14 @@
+<input id="user" type="text" placeholder="user">
+<input id="passwd" type="text" placeholder="password">
+<button id="submit">Submit</button>
+
+<script>
+const { signIn, signOut } = await import("auth-astro/client")
+
+const user = document.getElementById("user");
+const password = document.getElementById("passwd");
+
+document.getElementById("submit").addEventListener("click", () =>{
+  signIn("credentials", { user, password })
+})
+</script>

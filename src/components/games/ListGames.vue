@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {items, select} from "./Games"
+import { items, select } from "./Games"
 
 
 </script>

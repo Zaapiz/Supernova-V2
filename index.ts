@@ -20,30 +20,10 @@ import wisp from "wisp-server-node";
 
 const bare = createBareServer("/bare/");
 const app = express();
-// const isHttps = process.env.HTTPS === "true";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(ExpressMongoSanitize());
-// if (process.env.AI === "true") {
-//   app.use(
-//     session({
-//       secret: process.env.SECRET_KEY || "default_secret_key",
-//       resave: false,
-//       saveUninitialized: false,
-//       store: mongoStore,
-//       cookie: {
-//         secure: isHttps,
-//         maxAge: 1000 * 60 * 60 * 12, // 1/2 day
-//       },
-//     })
-//   );
-//   app.use("/api/", api);
-// } else {
-//   app.use("/api/", (req: express.Request, res: express.Response) => {
-//     res.send(false);
-//   });
-// }
 
 const currentDir = url.fileURLToPath(new URL('.', import.meta.url));
 let ssrHandler;

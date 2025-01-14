@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {page, items, totalPages} from "./Games"
+import { page, items, totalPages } from "./Games"
 </script>
 
 <template>
