@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { store } from '@/assets/store';
 
 const stuff = reactive({
   email: '',
@@ -36,8 +35,7 @@ async function post() {
     });
     const data = await response.json();
     if (data.status === "successful") {
-      store.username = data.username;
-      store.tokens = data.tokens || 0;
+      window.location.assign("/ai");
     } else {
       stuff.respond = data.message;
     }
@@ -49,7 +47,7 @@ async function post() {
 </script>
 
 <template>
-  <div class="flex justify-center items-center fixed z-10 inset-0 bg-black bg-opacity-40 flex-col">
+  <div class="flex justify-center items-center fixed inset-0 flex-col">
     <div class="bg-nav-bg p-2 py-0 rounded-xl">
       <div>
         <h1 class="text-5xl m-6 text-darker-blue text-center font-poppins">

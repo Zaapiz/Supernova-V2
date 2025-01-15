@@ -1,0 +1,16 @@
+---
+export const prerender = false;
+
+import Navbar from "../layouts/nav.astro";
+import AccountAccess from "../components/AccountAccess.vue";
+
+const account = await Astro.session?.get('account');
+
+if(account) {
+  return Astro.redirect('/');
+}
+---
+
+<Navbar>
+  <AccountAccess client:load/>
+</Navbar>
