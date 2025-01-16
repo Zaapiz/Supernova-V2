@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { actions } from 'astro:actions';
 
 const stuff = reactive({
   email: '',
@@ -21,23 +22,16 @@ function toggle(idk: string) {
 }
 
 async function post() {
+  
   try {
-    const response = await fetch(`/api/account/${select}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: stuff.email,
-        username: stuff.username,
-        password: stuff.password
-      })
-    });
-    const data = await response.json();
-    if (data.status === "successful") {
+    const response = await actions.account.signup({email: stuff.email, username: stuff.username, password: stuff.password})
+    const data = response.data
+    if (data && data.status === "successful") {
       window.location.assign("/ai");
     } else {
+      if(data){
       stuff.respond = data.message;
+    }
     }
   } catch (error) {
     stuff.respond = "Network error occurred";

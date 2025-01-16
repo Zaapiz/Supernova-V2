@@ -19,8 +19,9 @@ export default defineConfig({
     session: {
       driver: "mongodb",
       options: {
+        //make the connection string work
         connectionString: "mongodb://mongodb:27017",
-        databaseName: "supernova",
+        databaseName: process.env.DATABASE_NAME,
         collectionName: "session",
       }
     },

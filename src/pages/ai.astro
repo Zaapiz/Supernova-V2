@@ -4,7 +4,7 @@
   import { actions } from "astro:actions";
 
   document.getElementById("logout")?.addEventListener("click", async () => {
-    const { data, error } = await actions.logout();
+    const { data, error } = await actions.account.logout();
     console.log(data, error)
   })
   </script>
