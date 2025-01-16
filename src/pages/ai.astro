@@ -1,10 +1,8 @@
-<button id="logout">Logout</button>
+---
+export const prerender = false;
+import Navbar from "../layouts/navAccount.astro";
+---
 
-<script>
-  import { actions } from "astro:actions";
-
-  document.getElementById("logout")?.addEventListener("click", async () => {
-    const { data, error } = await actions.account.logout();
-    console.log(data, error)
-  })
-  </script>
+<Navbar>
+  <button class="text-white">test</button>
+</Navbar>

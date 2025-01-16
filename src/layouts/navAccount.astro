@@ -1,0 +1,24 @@
+---
+// parent must not be set to prerender
+import Navbar from "./nav.astro";
+import AccountNav from "../components/account/AccountNav.vue";
+import { getAccountById } from "../lib/account";
+
+let accountInfo;
+const accountid = await Astro.session?.get("userid");
+if (!accountid) {
+  accountInfo = undefined;
+} else {
+  const account = await getAccountById(accountid);
+  accountInfo = account
+    ? { username: account.username, tokens: account.tokens }
+    : undefined;
+}
+---
+
+<Navbar>
+  <div slot="navbar">
+    <AccountNav accountInfo={accountInfo} client:load />
+  </div>
+  <slot />
+</Navbar>

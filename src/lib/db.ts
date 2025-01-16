@@ -1,10 +1,7 @@
 import { MongoClient } from "mongodb";
-let client: MongoClient;
-if (process.argv[2] == "Docker") {
-  client = new MongoClient("mongodb://mongodb:27017");
-} else {
-  client = new MongoClient("mongodb://mongodb:27017");
-  // client = new MongoClient("mongodb://127.0.0.1:27017");
-}
 
-export {client}
+const client = new MongoClient(process.env.DATABASE_CONNECTION_STRING || "mongodb://mongodb:27017");
+const db = client.db(process.env.DATABASE_NAME || "supernova");
+const account = db.collection("account");
+
+export { account }

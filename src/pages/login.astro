@@ -2,14 +2,13 @@
 export const prerender = false;
 
 import Navbar from "../layouts/nav.astro";
-import AccountAccess from "../components/AccountAccess.vue";
+import AccountAccess from "../components/account/AccountAccess.vue";
 
-const account = await Astro.session?.get('account');
+const account = await Astro.session?.get('userid');
 
 if(account) {
   return Astro.redirect('/');
 }
-// Astro.session?.set('account','test')
 ---
 
 <Navbar>

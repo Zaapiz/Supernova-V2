@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import settingsImage from "../assets/pics/settings.webp";
 import "../assets/global.css";
 const forumEnabled = process.env.FORUM === "true";
+const aiEnabled = process.env.AI === "true";
 ---
 
 <html lang="en">
@@ -52,26 +53,19 @@ const forumEnabled = process.env.FORUM === "true";
               </a>
             )
           }
+          {
+            aiEnabled && (
+              <a
+                class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+                href="/ai"
+              >
+                AI
+              </a>
+            )
+          }
         </div>
-
-        <!--  <a v-if="store.config.ai" class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-              href="/ai">
-              AI
-            </a>
-          </div>
-          <div class="flex items-center">
-            <div v-if="store.username && router.currentRoute.value.path === '/ai'" class="flex items-center pr-8 space-x-5">
-              <p class="font-poppins text-2xl text-white">
-                Tokens: {{ store.tokens }}
-              </p>
-              <p class="font-poppins text-3xl text-white no-underline">
-                {{ store.username }}
-              </p>
-              <button v-if="store.username" class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12"
-                @click="logout()">
-                Logout
-              </button>
-            </div> -->
+        <div class="flex items-center justify-center">
+        <slot name="navbar" />
         <a href="/settings">
           <Image
             src={settingsImage}
@@ -79,6 +73,7 @@ const forumEnabled = process.env.FORUM === "true";
             alt="settings"
           />
         </a>
+      </div>
       </div>
     </nav>
     <slot />

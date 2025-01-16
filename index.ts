@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express";
 import proxy from "express-http-proxy";
 import ExpressMongoSanitize from "express-mongo-sanitize";
-// import session from "express-session";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
@@ -14,9 +13,6 @@ import { createServer } from "node:http";
 import { hostname } from "node:os";
 import url from "node:url";
 import wisp from "wisp-server-node";
-
-// import { mongoStore } from "./server/mongo.js";
-// import { api } from "./server/api.js";
 
 const bare = createBareServer("/bare/");
 const app = express();
@@ -112,4 +108,4 @@ function shutdown() {
   process.exit(0);
 }
 
-server.listen(process.env.PORT);
+server.listen(process.env.PORT || 8080);

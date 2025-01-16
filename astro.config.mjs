@@ -20,8 +20,8 @@ export default defineConfig({
       driver: "mongodb",
       options: {
         //make the connection string work
-        connectionString: "mongodb://mongodb:27017",
-        databaseName: process.env.DATABASE_NAME,
+        connectionString: process.env.DATABASE_CONNECTION_STRING || "mongodb://mongodb:27017",
+        databaseName: process.env.DATABASE_NAME || "supernova",
         collectionName: "session",
       }
     },

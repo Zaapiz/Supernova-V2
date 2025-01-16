@@ -1,5 +1,5 @@
-import { account } from './account';
+import { accountActions } from './account';
 
 export const server = {
-  account,
+  accountActions,
 }
