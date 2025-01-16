@@ -15,4 +15,15 @@ export default defineConfig({
   adapter: node({
     mode: "middleware",
   }),
+  experimental: {
+    session: {
+      driver: "mongodb",
+      options: {
+        connectionString: "mongodb://mongodb:27017",
+        databaseName: "supernova",
+        collectionName: "session",
+      }
+    },
+  },
+  server: { port: 2000, host: true },
 });
