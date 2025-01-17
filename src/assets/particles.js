@@ -1,5 +1,5 @@
 import { loadBasic } from "@tsparticles/basic";
-import { tsParticles, MoveDirection, OutMode } from "@tsparticles/engine";
+import { tsParticles } from "@tsparticles/engine";
 
 // fullScreen: {
 //   enable: true,
@@ -22,8 +22,8 @@ export async function startParticles() {
       },
       move: {
         enable: true,
-        speed: 0.8,
-        direction: "none",
+        speed: 2,
+        direction: "right",
         outModes: {
           default: "out",
         },
@@ -33,7 +33,7 @@ export async function startParticles() {
           enable: true,
           area: 800,
         },
-        value: 100,
+        value: 200,
       },
       opacity: {
         value: { min: 0.1, max: 0.5 },
@@ -47,7 +47,7 @@ export async function startParticles() {
         type: "circle",
       },
       size: {
-        value: { min: 1, max: 5 },
+        value: { min: 1, max: 3 }, // Smaller particles for star effect
         animation: {
           enable: true,
           speed: 0.5,
@@ -55,11 +55,7 @@ export async function startParticles() {
         },
       },
       links: {
-        enable: true,
-        distance: 150,
-        color: "#ffffff",
-        opacity: 0.4,
-        width: 1,
+        enable: false, // Disable links for a more star-like appearance
       },
     },
     pauseOnBlur: true,
