@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { store } from '@/assets/store';
 
 const props = defineProps({
   name: String,
@@ -9,11 +8,11 @@ const props = defineProps({
 
 const roomname = ref(props.name)
 const edit = ref(false)
+const activeroomid = ref(null)
 
 const emit = defineEmits(['roomSelected'])
 function selectRoom() {
-  store.activeroomid = props.id;
-  emit('roomSelected');
+
 }
 
 function editName(event: MouseEvent) {
@@ -35,10 +34,7 @@ async function rename() {
       })
     });
     const data = await response.json();
-    if (data === "invalid-session") {
-      store.username = undefined;
-      store.tokens = 0;
-    }
+
   } catch (error) {
     console.error('Failed to rename room:', error);
   }
@@ -47,14 +43,14 @@ async function rename() {
 
 <template>
   <div class="p-2 m-3 cursor-pointer transition-colors border-black rounded-lg flex justify-between" :class="{
-    'hover:bg-gray-500 hover:border': store.activeroomid !== id,
-    'bg-blue-500': store.activeroomid === id
+    'hover:bg-gray-500 hover:border': activeroomid !== id,
+    'bg-blue-500': activeroomid === id
   }" @click="selectRoom">
     <input v-if="edit === true" v-model="roomname" class="rounded-md" type="text" @click.stop @keydown.enter="rename">
     <p v-if="edit === false" class="text-xl text-gray-100">
       {{ roomname || "Unnamed Room" }}
     </p>
-    <span v-if="id !== undefined" class="material-symbols-outlined" @click="editName">
+    <span v-if="id !== null" class="material-symbols-outlined" @click="editName">
       edit
     </span>
   </div>

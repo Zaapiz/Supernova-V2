@@ -16,6 +16,7 @@ const aiEnabled = process.env.AI === "true";
     />
   </head>
   <body>
+    <div class="flex flex-col h-screen">
     <nav class="bg-nav-bg z-20">
       <div class="flex flex-nowrap justify-between p-5">
         <div class="space-x-5">
@@ -77,6 +78,7 @@ const aiEnabled = process.env.AI === "true";
       </div>
     </nav>
     <slot />
+  </div>
   </body>
 </html>
 

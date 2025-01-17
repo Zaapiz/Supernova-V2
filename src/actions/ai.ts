@@ -1,0 +1,38 @@
+import { defineAction, ActionError } from "astro:actions";
+import { client } from "../lib/ai";
+
+export const aiActions = {
+  ask: defineAction({
+    handler: async (input, context) => {
+      try {
+        const completion = await client.chat.completions.create({
+          messages: [
+            {
+              role: "system",
+              content: "Markdown optional",
+            },
+            {
+              role: "user",
+              content: input.text,
+            },
+          ],
+          model: "gpt-4o-mini",
+          max_tokens: 5000,
+        });
+        console.log(completion);
+        return {
+          message: completion.choices[0].message.content,
+          remainingTokens: 5,
+          roomid: 1,
+          error: false,
+        };
+      } catch (error) {
+        console.warn(error);
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    },
+  }),
+};
