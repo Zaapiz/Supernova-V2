@@ -143,7 +143,7 @@ const handleEnterKey = () => {
           class="absolute top-full left-0 w-full bg-white rounded-b-lg z-10 max-h-96 overflow-x-clip overflow-y-scroll shadow-lg"
           @mouseenter="items.dropdown = true" @mouseleave="items.dropdown = false">
           <ul class="list-none text-center">
-            <li v-for="game in filteredResults" :key="game.file" class="p-2 hover:bg-gray-200 cursor-pointer"
+            <li v-for="game in filteredResults" :key="`${game.root}-${game.file}`" class="p-2 hover:bg-gray-200 cursor-pointer"
               @click="select(game.file, game.root)">
               {{ game.name }}
             </li>
