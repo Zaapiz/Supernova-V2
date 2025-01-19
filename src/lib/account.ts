@@ -10,7 +10,7 @@ export async function getAccountByUser(user: string) {
 }
 
 export async function getAccountById(id: string | number | ObjectId) {
-  if(!(id instanceof ObjectId)) id = new ObjectId(id);
+  if (!(id instanceof ObjectId)) id = new ObjectId(id);
   return await account.findOne({ _id: id });
 }
 

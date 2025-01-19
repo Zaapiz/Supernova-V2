@@ -10,9 +10,7 @@ if (!accountid) {
   accountInfo = undefined;
 } else {
   const account = await getAccountById(accountid);
-  accountInfo = account
-    ? { username: account.username, tokens: account.tokens }
-    : undefined;
+  accountInfo = account ? { username: account.username } : undefined;
 }
 ---
 
