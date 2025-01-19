@@ -1,4 +1,4 @@
-import { reactive, onMounted, computed } from "vue";
+import { reactive, computed } from "vue";
 
 interface Game {
   name: string;
@@ -28,15 +28,15 @@ export const items = reactive({
 });
 
 // Initialize URL params in onMounted
-export function mounted(){
-    const urlParams = new URLSearchParams(window.location.search);
-    items.urlParams = {
-      search: urlParams.get("search") || DEFAULT_PARAMS.search,
-      page: parseInt(urlParams.get("page") || DEFAULT_PARAMS.page),
-    };
-    fetchStuff();
-    items.mounted = true;
-};
+export function mounted() {
+  const urlParams = new URLSearchParams(window.location.search);
+  items.urlParams = {
+    search: urlParams.get("search") || DEFAULT_PARAMS.search,
+    page: parseInt(urlParams.get("page") || DEFAULT_PARAMS.page),
+  };
+  fetchStuff();
+  items.mounted = true;
+}
 
 async function fetchStuff() {
   try {

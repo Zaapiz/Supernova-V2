@@ -18,6 +18,7 @@ export const aiActions = {
   ask: defineAction({
     handler: async (input, context) => {
       try {
+        console.log(input);
         const completion = await client.chat.completions.create({
           messages: [
             {
@@ -32,7 +33,7 @@ export const aiActions = {
           model: "gpt-4o-mini",
           max_tokens: 5000,
         });
-        console.log(completion);
+        console.log(completion.choices[0]);
         return {
           message: completion.choices[0].message.content,
           remainingTokens: 5,

@@ -13,6 +13,10 @@ const stuff = reactive({
   tokens: 0 as number | undefined,
 });
 
+function addmessage(ai: boolean, text: string) {
+  stuff.chats.push({ ai, text });
+}
+
 function debounce(fn: Function, delay: number) {
   let timeoutId: NodeJS.Timeout;
   return function () {
@@ -42,11 +46,28 @@ async function enter(event: KeyboardEvent) {
   if (!event.shiftKey) {
     event.preventDefault();
     if (stuff.text && stuff.text.trim()) {
-      const response = await actions.aiActions.ask({
-        text: stuff.text,
-      });
-      console.log(response);
-      console.log("send");
+      if (!stuff.isSending) {
+        try {
+          stuff.isSending = stuff.text;
+          stuff.text = "";
+
+          addmessage(false, String(stuff.isSending));
+          const response = await actions.aiActions.ask({
+            text: stuff.isSending,
+          });
+          if (!response.data?.error) {
+            if (response.data?.message) {
+              addmessage(true, response.data.message);
+            }
+          }
+          console.log(response);
+          console.log("send");
+        } catch (error) {
+          console.warn(error);
+        } finally {
+          stuff.isSending = false;
+        }
+      }
     }
   }
 }
@@ -68,7 +89,7 @@ async function enter(event: KeyboardEvent) {
           Enter a Prompt
         </div>
       </div>
-      <div v-if="stuff.isSending" class="flex justify-start">
+      <div v-show="stuff.isSending" class="flex justify-start">
         <div class="bg-blue-600 rounded-lg px-12 py-2">
           <slot />
         </div>
@@ -76,7 +97,9 @@ async function enter(event: KeyboardEvent) {
     </div>
 
     <div class="flex gap-2 p-4 py-6 items-center relative">
-      <span class="text-white absolute top-0 left-4">Tokens: {{ stuff.tokens }}</span>
+      <span class="text-white absolute top-0 left-4"
+        >Tokens: {{ stuff.tokens }}</span
+      >
       <span v-if="stuff.error" class="text-red-500 absolute top-0 left-1/2">{{
         stuff.error
       }}</span>
