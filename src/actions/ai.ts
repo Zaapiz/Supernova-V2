@@ -1,5 +1,5 @@
 import { defineAction, ActionError } from "astro:actions";
-import { client, tokenize } from "../lib/ai";
+import { client, tokenize, storeInDB } from "../lib/ai";
 
 export const aiActions = {
   getTokens: defineAction({
@@ -18,6 +18,8 @@ export const aiActions = {
   ask: defineAction({
     handler: async (input, context) => {
       try {
+        const chat = [{ ai: false, text: input.text }];
+
         console.log(input);
         const completion = await client.chat.completions.create({
           messages: [
@@ -34,6 +36,9 @@ export const aiActions = {
           max_tokens: 5000,
         });
         console.log(completion.choices[0]);
+        chat.push({ ai: true, text: completion.choices[0].message.content });
+        const userid = await context.session?.get("userid");
+        const roomid = await storeInDB(userid, input.roomid, chat);
         return {
           message: completion.choices[0].message.content,
           remainingTokens: 5,

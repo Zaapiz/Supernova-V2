@@ -3,11 +3,17 @@ import { reactive, computed, onMounted } from 'vue';
 
 import room from "./AiRoom.vue"
 
+const props = defineProps({
+  rooms: Object,
+});
+
+console.log(props.rooms)
+
 const stuff = reactive({
   text: '',
   error: '',
   isSending: false as string | boolean,
-  rooms: [] as { roomid: string; name: string }[],
+  rooms: props.rooms as { roomid: string; name: string }[],
   chats: [] as { ai: boolean; text: string }[],
 });
 </script>
