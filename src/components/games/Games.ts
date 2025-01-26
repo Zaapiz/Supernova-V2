@@ -24,7 +24,6 @@ export const items = reactive({
     search: DEFAULT_PARAMS.search,
     page: parseInt(DEFAULT_PARAMS.page),
   },
-  mounted: false,
 });
 
 // Initialize URL params in onMounted
@@ -35,7 +34,6 @@ export function mounted() {
     page: parseInt(urlParams.get("page") || DEFAULT_PARAMS.page),
   };
   fetchStuff();
-  items.mounted = true;
 }
 
 async function fetchStuff() {

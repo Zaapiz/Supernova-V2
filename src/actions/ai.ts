@@ -1,5 +1,6 @@
 import { defineAction, ActionError } from "astro:actions";
 import { client, tokenize, storeInDB } from "../lib/ai";
+import { getRoom } from "../lib/account";
 
 export const aiActions = {
   getTokens: defineAction({
@@ -38,13 +39,39 @@ export const aiActions = {
         console.log(completion.choices[0]);
         chat.push({ ai: true, text: completion.choices[0].message.content });
         const userid = await context.session?.get("userid");
-        const roomid = await storeInDB(userid, input.roomid, chat);
+        let roomid = undefined;
+        console.log(input.roomid)
+        if (userid) {
+          let id = await storeInDB(userid, input.roomid, chat);
+          if (id) {
+            roomid = id.toString();
+          }
+        }
         return {
           message: completion.choices[0].message.content,
           remainingTokens: 5,
-          roomid: 1,
+          roomid: roomid,
           error: false,
         };
+      } catch (error) {
+        console.warn(error);
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    },
+  }),
+  getChats: defineAction({
+    handler: async (input, context) => {
+      try {
+        const userid = await context.session?.get("userid");
+        const accountData = await getRoom(userid, input.roomid);
+        if (accountData) {
+          return accountData.rooms[0].chats;
+        } else {
+          return { error: "Account data not found" };
+        }
       } catch (error) {
         console.warn(error);
         throw new ActionError({

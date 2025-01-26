@@ -15,7 +15,7 @@ const props = defineProps({
         {{ props.accountInfo.username }}
       </p>
       <button
-        class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-2xl"
+        class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-2xl hover:cursor-pointer"
         @click="actions.accountActions.logout"
       >
         Logout

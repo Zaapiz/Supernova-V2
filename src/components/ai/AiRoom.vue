@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { PropType } from "vue";
+import { items, selectRoom } from "./store";
 
 const props = defineProps({
   name: String,
   id: {
     type: [String] as PropType<string | null>,
+    default: null
   },
 });
 
 const roomname = ref(props.name);
 const edit = ref(false);
-const activeroomid = ref(null);
 
-const emit = defineEmits(["roomSelected"]);
-function selectRoom() {}
+// const emit = defineEmits(["roomSelected"]);
+// function selectRoom() {}
 
 function editName(event: MouseEvent) {
   event.stopPropagation();
@@ -45,10 +46,10 @@ async function rename() {
   <div
     class="p-2 m-3 cursor-pointer transition-colors border-black rounded-lg flex justify-between"
     :class="{
-      'hover:bg-gray-500 hover:border': activeroomid !== id,
-      'bg-blue-500': activeroomid === id,
+      'hover:bg-gray-500 hover:border': items.selectedRoom !== id,
+      'bg-blue-500': items.selectedRoom === id,
     }"
-    @click="selectRoom"
+    @click="selectRoom(props.id)"
   >
     <input
       v-if="edit === true"

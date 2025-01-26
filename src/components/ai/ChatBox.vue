@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, watch } from "vue";
 import { actions } from "astro:actions";
+import { items } from "./store";
 
 import chat from "./AiChat.vue";
 
@@ -8,13 +9,11 @@ const stuff = reactive({
   text: "",
   error: "",
   isSending: false as string | boolean,
-  rooms: [] as { roomid: string; name: string }[],
-  chats: [] as { ai: boolean; text: string }[],
   tokens: 0 as number | undefined,
 });
 
 function addmessage(ai: boolean, text: string) {
-  stuff.chats.push({ ai, text });
+  items.chats.push({ ai, text });
 }
 
 function debounce(fn: Function, delay: number) {
@@ -54,14 +53,18 @@ async function enter(event: KeyboardEvent) {
           addmessage(false, String(stuff.isSending));
           const response = await actions.aiActions.ask({
             text: stuff.isSending,
+            roomid: items.selectedRoom,
           });
           if (!response.data?.error) {
             if (response.data?.message) {
               addmessage(true, response.data.message);
             }
+            if(response.data?.roomid) {
+              items.rooms.push({ roomid: response.data.roomid, name: "Unnamed Room" });
+              items.selectedRoom = response.data.roomid;
+            }
           }
           console.log(response);
-          console.log("send");
         } catch (error) {
           console.warn(error);
         } finally {
@@ -77,12 +80,12 @@ async function enter(event: KeyboardEvent) {
   <div class="flex-1 flex flex-col overflow-x-hidden">
     <div class="flex-1 p-4 space-y-4 overflow-y-auto">
       <chat
-        v-for="(message, index) in stuff.chats"
+        v-for="(message, index) in items.chats"
         :key="index"
         :ai="message.ai"
         :stuff="message.text"
       />
-      <div v-if="stuff.chats.length === 0" class="flex justify-center">
+      <div v-if="items.chats.length === 0" class="flex justify-center">
         <div
           class="text-3xl font-poppins rounded-lg px-4 py-2 break-words bg-blue-600 text-white"
         >

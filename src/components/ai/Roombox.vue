@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { reactive, computed, onMounted } from 'vue';
-
+import { items } from "./store"
+import type { PropType } from 'vue'
 import room from "./AiRoom.vue"
 
 const props = defineProps({
-  rooms: Object,
+  rooms: Array as PropType<{ roomid: string; name: string }[]>,
 });
 
-console.log(props.rooms)
-
-const stuff = reactive({
-  text: '',
-  error: '',
-  isSending: false as string | boolean,
-  rooms: props.rooms as { roomid: string; name: string }[],
-  chats: [] as { ai: boolean; text: string }[],
-});
+items.rooms = props.rooms || []
 </script>
 
 <template>
@@ -26,8 +18,8 @@ const stuff = reactive({
       </h2>
     </div>
     <div class="overflow-y-auto h-full">
-      <room v-for="item in stuff.rooms" :key="item.roomid" :id="item.roomid" :name="item.name" />
-      <room :id="null" name="Empty Room" />
+      <room v-for="item in items.rooms" :key="item.roomid" :id="item.roomid" :name="item.name" />
+      <room :id="null" name="New Room" />
     </div>
   </div>
 </template>

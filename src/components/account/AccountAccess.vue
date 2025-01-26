@@ -76,45 +76,23 @@ async function post() {
       </div>
       <form @submit.prevent="post">
         <div>
-          <input
-            v-if="stuff.header === 'Sign Up'"
-            v-model="stuff.email"
-            class="rounded-xl m-2 w-buttonr h-12 text-3xl outline-blue-500 outline-8 text-center"
-            placeholder="Email"
-            required
-            maxlength="1000"
-          />
+          <input v-if="stuff.header === 'Sign Up'" v-model="stuff.email"
+            class="rounded-xl m-2 w-buttonr h-12 text-3xl  text-center" placeholder="Email" required maxlength="1000" />
         </div>
         <div>
-          <input
-            v-model="stuff.username"
-            class="rounded-xl m-2 w-buttonr h-12 text-3xl outline-blue-500 outline-8 text-center"
-            placeholder="Username"
-            required
-            maxlength="50"
-          />
+          <input v-model="stuff.username" class="rounded-xl m-2 w-buttonr h-12 text-3xl  text-center"
+            placeholder="Username" required maxlength="50" />
         </div>
         <div>
-          <input
-            v-model="stuff.password"
-            class="rounded-xl m-2 w-buttonr h-12 text-3xl outline-blue-500 outline-8 text-center"
-            placeholder="Password"
-            type="password"
-            required
-            maxlength="1000"
-          />
+          <input v-model="stuff.password" class="rounded-xl m-2 w-buttonr h-12 text-3xl  text-center"
+            placeholder="Password" type="password" required maxlength="1000" />
         </div>
-        <button
-          type="submit"
-          class="rounded-xl m-2 bg-darker-blue font-rubik text-4xl text-center text-white w-buttonr h-12 hover:bg-darkerer-blue"
-        >
+        <button type="submit"
+          class="rounded-xl m-2 bg-darker-blue font-rubik text-4xl text-center text-white w-buttonr h-12 hover:bg-darkerer-blue">
           Submit
         </button>
       </form>
-      <button
-        class="text-white hover:text-blue-600 m-2"
-        @click="toggle(stuff.button)"
-      >
+      <button class="text-white hover:text-blue-600 m-2" @click="toggle(stuff.button)">
         {{ stuff.button }}
       </button>
     </div>
