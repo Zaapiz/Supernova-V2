@@ -107,7 +107,7 @@ async function enter(event: KeyboardEvent) {
         <textarea
           v-model="stuff.text"
           placeholder="Type your message"
-          class="w-full px-4 py-4 rounded-lg focus:outline-none resize-none"
+          class="w-full px-4 py-4 rounded-lg focus:outline-hidden resize-none"
           @keydown.enter="enter"
         />
         <span class="text-black absolute bottom-4 right-4"

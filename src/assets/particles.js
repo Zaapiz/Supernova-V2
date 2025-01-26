@@ -13,7 +13,6 @@ export async function startParticles() {
     },
     fullScreen: {
       enable: true,
-      zIndex: -1,
     },
     fpsLimit: 60,
     particles: {

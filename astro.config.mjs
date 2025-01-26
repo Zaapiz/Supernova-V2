@@ -1,14 +1,17 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
 import "dotenv/config";
 
 // https://astro.build/config
 export default defineConfig({
+  vite: {
+    plugins: [tailwindcss()],
+  },
   outDir: "dist/astro",
-  integrations: [vue(), tailwind({ applyBaseStyles: false })],
+  integrations: [vue()],
   prefetch: {
     prefetchAll: true,
   },

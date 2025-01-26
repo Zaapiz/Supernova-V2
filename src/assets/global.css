@@ -1,17 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,500&display=swap")
+layer(base);
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap")
+layer(base);
+@import "tailwindcss";
+
+@theme {
+  --color-nav-bg: #343a40;
+  --color-title-blue: #008cff;
+  --color-darker-blue: #006cc5;
+  --color-darkerer-blue: #0464b3;
+
+  --font-poppins: Poppins;
+  --font-rubik: Rubik;
+
+  --spacing-textw: 864px;
+  --spacing-buttonr: 550px;
+  --spacing-half: 50vh;
+
+  --size-idk: 500px;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  input, select, textarea {
+    background-color: white;
+  }
+}
 
 body {
   /* background-image: url("./pics/space.webp");
   background-size: 100%; */
-  background-color: rgb(0,0,0);
+  background-color: rgb(0, 0, 0);
 }
 
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: inherit;
     font-weight: bold;
   }

@@ -16,7 +16,7 @@ function handleEnterKey() {
 <template>
   <div class="flex justify-center m-6">
     <div class="relative w-96 sm:w-textw">
-      <input v-model="items.search" class="w-full rounded-3xl outline-none transition-all h-12 text-center text-2xl"
+      <input v-model="items.search" class="w-full rounded-3xl outline-hidden transition-all h-12 text-center text-2xl"
         ref="searchInput" :class="{
           'rounded-t-md rounded-b-none': dropdown,
           'focus:rounded-md': !dropdown,
