@@ -52,6 +52,18 @@ export async function getRoom(
   );
 }
 
+export async function renameRoom(userid: string | ObjectId, roomid: string | ObjectId, roomname: string) {
+  if (!(userid instanceof ObjectId)) userid = new ObjectId(userid);
+  if (!(roomid instanceof ObjectId)) roomid = new ObjectId(roomid);
+  await account.updateOne(
+    {
+      _id: new ObjectId(userid),
+      "rooms.roomid": new ObjectId(roomid),
+    },
+    { $set: { "rooms.$.name": roomname } }
+  );
+}
+
 export async function signupValidate(
   email: string,
   username: string,

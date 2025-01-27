@@ -9,6 +9,10 @@ import "dotenv/config";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    server:{
+      allowedHosts: [""]
+    }
+
   },
   outDir: "dist/astro",
   integrations: [vue()],
