@@ -39,8 +39,7 @@ export const aiActions = {
         console.log(completion.choices[0]);
         chat.push({ ai: true, text: completion.choices[0].message.content });
         const userid = await context.session?.get("userid");
-        let roomid = undefined;
-        console.log(input.roomid)
+        let roomid = null;
         if (userid) {
           let id = await storeInDB(userid, input.roomid, chat);
           if (id) {
