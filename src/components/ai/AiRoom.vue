@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { PropType } from "vue";
-import { items, selectRoom } from "./store";
+import { items, selectRoom, removeRoom } from "./store";
 import { actions } from "astro:actions";
 
 const props = defineProps({
@@ -17,6 +17,13 @@ const edit = ref(false);
 
 // const emit = defineEmits(["roomSelected"]);
 // function selectRoom() {}
+
+function remove(event: MouseEvent) {
+  event.stopPropagation();
+  if (props.id) {
+    removeRoom(props.id)
+  }
+}
 
 function editName(event: MouseEvent) {
   event.stopPropagation();
@@ -47,8 +54,13 @@ async function rename() {
     <p v-if="edit === false" class="text-xl text-gray-100">
       {{ roomname || "Unnamed Room" }}
     </p>
-    <span v-if="id !== null" class="material-symbols-outlined" @click="editName">
-      edit
-    </span>
+    <div v-if="id !== null">
+      <span class="material-symbols-outlined" @click="editName">
+        edit
+      </span>
+      <span class="material-symbols-outlined" @click="remove">
+        delete
+      </span>
+    </div>
   </div>
 </template>
