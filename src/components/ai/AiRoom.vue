@@ -18,10 +18,17 @@ const edit = ref(false);
 // const emit = defineEmits(["roomSelected"]);
 // function selectRoom() {}
 
-function remove(event: MouseEvent) {
+async function remove(event: MouseEvent) {
   event.stopPropagation();
-  if (props.id) {
-    removeRoom(props.id)
+  try {
+    if (props.id) {
+      const response = await actions.aiActions.deleteRoom({
+        roomid: props.id,
+      })
+      removeRoom(props.id)
+    }
+  } catch (error) {
+    console.error("Failed to remove room:", error);
   }
 }
 
@@ -37,7 +44,6 @@ async function rename() {
       roomid: props.id,
       roomname: roomname.value,
     })
-
 
   } catch (error) {
     console.error("Failed to rename room:", error);

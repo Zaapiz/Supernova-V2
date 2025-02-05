@@ -57,10 +57,22 @@ export async function renameRoom(userid: string | ObjectId, roomid: string | Obj
   if (!(roomid instanceof ObjectId)) roomid = new ObjectId(roomid);
   await account.updateOne(
     {
-      _id: new ObjectId(userid),
-      "rooms.roomid": new ObjectId(roomid),
+      _id: userid,
+      "rooms.roomid": roomid,
     },
     { $set: { "rooms.$.name": roomname } }
+  );
+}
+
+export async function deleteRoom(userid: string | ObjectId, roomid: string | ObjectId) {
+  if (!(userid instanceof ObjectId)) userid = new ObjectId(userid);
+  if (!(roomid instanceof ObjectId)) roomid = new ObjectId(roomid);
+  await account.updateOne(
+    {
+      _id: userid,
+    },
+    // @ts-ignore
+    { $pull: { rooms: { roomid: roomid } } }
   );
 }
 
