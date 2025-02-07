@@ -4,7 +4,7 @@ import { getRoom, renameRoom, deleteRoom } from "../lib/account";
 
 export const aiActions = {
   getTokens: defineAction({
-    handler: async (input, context) => {
+    handler: async (input) => {
       try {
         return tokenize(input.text);
       } catch (error) {
@@ -41,7 +41,7 @@ export const aiActions = {
         const userid = await context.session?.get("userid");
         let roomid = null;
         if (userid) {
-          let id = await storeInDB(userid, input.roomid, chat);
+          const id = await storeInDB(userid, input.roomid, chat);
           if (id) {
             roomid = id.toString();
           }
