@@ -39,7 +39,6 @@ export async function storeInDB(
       // @ts-ignore
       { "rooms.$": 1 }
     );
-    console.log(accountDoc);
     if (accountDoc) {
       const room = accountDoc.rooms[0];
       if (room.chats.length <= 100) {

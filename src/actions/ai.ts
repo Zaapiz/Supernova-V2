@@ -19,9 +19,30 @@ export const aiActions = {
   ask: defineAction({
     handler: async (input, context) => {
       try {
-        const chat = [{ ai: false, text: input.text }];
+        interface Chat {
+          ai: boolean;
+          text: string;
+        }
 
-        console.log(input);
+        const userid = await context.session?.get("userid");
+
+        const chatBackend: Chat[] = [];
+
+        if (userid && input.roomid) {
+          const room = await getRoom(userid, input.roomid);
+          if (room) {
+            room.rooms[0].chats.forEach((idk) => {
+              chatBackend.push(idk);
+            });
+          }
+        }
+        chatBackend.push(
+          {
+            ai: false,
+            text: input.text,
+          }
+        );
+
         const completion = await client.chat.completions.create({
           messages: [
             {
@@ -37,8 +58,13 @@ export const aiActions = {
           max_tokens: 5000,
         });
         console.log(completion.choices[0]);
-        chat.push({ ai: true, text: completion.choices[0].message.content });
-        const userid = await context.session?.get("userid");
+
+        const chat = [{ ai: false, text: input.text }];
+
+        chat.push({
+          ai: true,
+          text: completion.choices[0].message.content || "",
+        });
         let roomid = null;
         if (userid) {
           const id = await storeInDB(userid, input.roomid, chat);
@@ -84,7 +110,7 @@ export const aiActions = {
     handler: async (input, context) => {
       try {
         const userid = await context.session?.get("userid");
-        await renameRoom(userid, input.roomid, input.roomname)
+        await renameRoom(userid, input.roomid, input.roomname);
         return "success";
       } catch (error) {
         console.warn(error);
@@ -99,7 +125,7 @@ export const aiActions = {
     handler: async (input, context) => {
       try {
         const userid = await context.session?.get("userid");
-        await deleteRoom(userid, input.roomid)
+        await deleteRoom(userid, input.roomid);
         return "success";
       } catch (error) {
         console.warn(error);
@@ -110,5 +136,4 @@ export const aiActions = {
       }
     },
   }),
-
 };
