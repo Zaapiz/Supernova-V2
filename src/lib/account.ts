@@ -3,8 +3,8 @@ import { account } from "./db";
 import { ObjectId } from "mongodb";
 
 interface Chat {
-  ai: boolean;
-  text: string;
+  role: string;
+  content: string;
 }
 
 interface Room {

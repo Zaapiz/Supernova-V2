@@ -15,7 +15,7 @@ const props = defineProps({
   <div class="flex" :class="ai ? 'justify-start' : 'justify-end'">
     <div v-if="ai" class="max-w-[70%] rounded-lg px-4 py-2 break-words font-poppins bg-blue-600 text-white"
       v-html="DOMPurify.sanitize(marked.parse(props.stuff) as string)"></div>
-    <div v-if="!ai" class="max-w-[70%] rounded-lg px-4 py-2 break-words font-poppins bg-gray-100 text-gray-900">{{
+    <div v-else class="max-w-[70%] rounded-lg px-4 py-2 break-words font-poppins bg-gray-100 text-gray-900">{{
       props.stuff }}</div>
   </div>
 </template>

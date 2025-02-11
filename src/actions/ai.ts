@@ -19,14 +19,13 @@ export const aiActions = {
   ask: defineAction({
     handler: async (input, context) => {
       try {
-        interface Chat {
-          ai: boolean;
-          text: string;
-        }
 
         const userid = await context.session?.get("userid");
 
-        const chatBackend: Chat[] = [];
+        const chatBackend = [{
+          role: "developer",
+          content: "Markdown optional",
+        }];
 
         if (userid && input.roomid) {
           const room = await getRoom(userid, input.roomid);
@@ -38,32 +37,24 @@ export const aiActions = {
         }
         chatBackend.push(
           {
-            ai: false,
-            text: input.text,
+            role: "user",
+            content: input.text,
           }
         );
 
         const completion = await client.chat.completions.create({
-          messages: [
-            {
-              role: "system",
-              content: "Markdown optional",
-            },
-            {
-              role: "user",
-              content: input.text,
-            },
-          ],
+          // @ts-ignore
+          messages: chatBackend,
           model: "gpt-4o-mini",
           max_tokens: 5000,
         });
         console.log(completion.choices[0]);
 
-        const chat = [{ ai: false, text: input.text }];
+        const chat = [{ role: "user", content: input.text }];
 
         chat.push({
-          ai: true,
-          text: completion.choices[0].message.content || "",
+          role: "assistant",
+          content: completion.choices[0].message.content || "",
         });
         let roomid = null;
         if (userid) {
@@ -74,7 +65,6 @@ export const aiActions = {
         }
         return {
           message: completion.choices[0].message.content,
-          remainingTokens: 5,
           roomid: roomid,
           error: false,
         };

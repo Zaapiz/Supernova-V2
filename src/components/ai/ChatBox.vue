@@ -11,8 +11,8 @@ const stuff = reactive({
   tokens: 0 as number | undefined,
 });
 
-function addmessage(ai: boolean, text: string) {
-  items.chats.push({ ai, text });
+function addmessage(role: string, content: string) {
+  items.chats.push({ role, content });
 }
 
 function debounce(fn: Function, delay: number) {
@@ -49,14 +49,14 @@ async function enter(event: KeyboardEvent) {
           items.isSending = stuff.text;
           stuff.text = "";
 
-          addmessage(false, String(items.isSending));
+          addmessage("user", String(items.isSending));
           const response = await actions.aiActions.ask({
             text: items.isSending,
             roomid: items.selectedRoom,
           });
           if (!response.data?.error) {
             if (response.data?.message) {
-              addmessage(true, response.data.message);
+              addmessage("assistant", response.data.message);
             }
             if (response.data?.roomid) {
               items.rooms.push({ roomid: response.data.roomid, name: "Unnamed Room" });
@@ -78,7 +78,7 @@ async function enter(event: KeyboardEvent) {
 <template>
   <div class="flex-1 flex flex-col overflow-x-hidden">
     <div class="flex-1 p-4 space-y-4 overflow-y-auto">
-      <chat v-for="(message, index) in items.chats" :key="index" :ai="message.ai" :stuff="message.text" />
+      <chat v-for="(message, index) in items.chats" :key="index" :ai="message.role !== 'user'" :stuff="message.content" />
       <div v-if="items.chats.length === 0" class="flex justify-center">
         <div class="text-3xl font-poppins rounded-lg px-4 py-2 break-words bg-blue-600 text-white">
           Enter a Prompt

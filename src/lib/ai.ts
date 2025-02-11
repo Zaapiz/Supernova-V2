@@ -17,7 +17,7 @@ export function tokenize(text: string) {
 export async function storeInDB(
   accid: string | ObjectId,
   roomid: string | ObjectId | undefined,
-  chats: { ai: boolean; text: string }[]
+  chats: { role: string; content: string }[]
 ) {
   if (!(accid instanceof ObjectId)) accid = new ObjectId(accid);
   if (roomid === null) {
