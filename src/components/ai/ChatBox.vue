@@ -48,7 +48,7 @@ async function enter(event: KeyboardEvent) {
               items.rooms.push({ roomid: response.data.roomid, name: "Unnamed Room" });
               items.selectedRoom = response.data.roomid;
             }
-          }
+          } else stuff.error = response.data.error
           console.log(response);
         } catch (error) {
           console.warn(error);
@@ -82,7 +82,7 @@ async function enter(event: KeyboardEvent) {
         stuff.error
         }}</span>
       <div class="relative flex-1">
-        <textarea v-model="stuff.text" placeholder="Type your message"
+        <textarea v-model="stuff.text" placeholder="Type your message" maxlength="2000"
           class="w-full px-4 py-4 rounded-lg focus:outline-hidden resize-none" @keydown.enter="enter" />
         <span class="text-black absolute bottom-4 right-4">{{ stuff.text.length }} / 2000</span>
       </div>

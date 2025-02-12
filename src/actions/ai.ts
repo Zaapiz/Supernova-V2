@@ -6,6 +6,9 @@ export const aiActions = {
   ask: defineAction({
     handler: async (input, context) => {
       try {
+        if (input.text.length > 2000) {
+          return { error: "Too many characters" };
+        }
         const userid = await context.session?.get("userid");
 
         const chatBackend = [

@@ -52,12 +52,12 @@ async function rename() {
 </script>
 
 <template>
-  <div class="p-2 m-3 cursor-pointer transition-colors border-black rounded-lg flex justify-between" :class="{
+  <div class="p-2 m-3 cursor-pointer transition-colors border-black rounded-lg flex justify-between items-center" :class="{
     'hover:bg-gray-500 hover:border': items.selectedRoom !== id,
     'bg-blue-500': items.selectedRoom === id,
   }" @click="selectRoom(props.id)">
     <input v-if="edit === true" v-model="roomname" class="rounded-md" type="text" @click.stop @keydown.enter="rename" />
-    <p v-if="edit === false" class="text-xl text-gray-100">
+    <p v-if="edit === false" class="text-xl text-gray-100 overflow-hidden w-4/5">
       {{ roomname || "Unnamed Room" }}
     </p>
     <div v-if="id !== null">
