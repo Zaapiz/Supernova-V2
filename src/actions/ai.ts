@@ -1,21 +1,8 @@
 import { defineAction, ActionError } from "astro:actions";
-import { client, tokenize, storeInDB } from "../lib/ai";
+import { client, storeInDB } from "../lib/ai";
 import { getRoom, renameRoom, deleteRoom } from "../lib/account";
 
 export const aiActions = {
-  getTokens: defineAction({
-    handler: async (input) => {
-      try {
-        return tokenize(input.text);
-      } catch (error) {
-        console.warn(error);
-        throw new ActionError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Internal Server Error",
-        });
-      }
-    },
-  }),
   ask: defineAction({
     handler: async (input, context) => {
       try {

@@ -41,7 +41,6 @@
     "npm-run-all2": "^7.0.2",
     "openai": "^4.82.0",
     "tailwindcss": "^4.0.2",
-    "tiktoken": "^1.0.18",
     "vue": "^3.5.13",
     "wisp-server-node": "^1.1.7"
   },

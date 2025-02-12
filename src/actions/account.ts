@@ -41,7 +41,6 @@ export const accountActions = {
           const acc = await dbAccount.insertOne({
             email: input.email,
             username: input.username,
-            tokens: 0,
             password: hash,
             rooms: [],
           });

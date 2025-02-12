@@ -9,7 +9,7 @@ interface Room {
 export const items = reactive({
   selectedRoom: null as string | null,
   rooms: [] as { roomid: string; name: string }[],
-  chats: [] as { ai: boolean; text: string }[],
+  chats: [] as { role: string; content: string }[],
   isSending: false as string | boolean,
 });
 

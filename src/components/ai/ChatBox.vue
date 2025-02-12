@@ -8,7 +8,6 @@ import chat from "./AiChat.vue";
 const stuff = reactive({
   text: "",
   error: "",
-  tokens: 0 as number | undefined,
 });
 
 function addmessage(role: string, content: string) {
@@ -26,19 +25,6 @@ function debounce(fn: Function, delay: number) {
     }, delay);
   };
 }
-
-const fetchTokens = debounce(async () => {
-  if (stuff.text) {
-    const response = await actions.aiActions.getTokens({
-      text: stuff.text,
-    });
-    stuff.tokens = response.data;
-  } else {
-    stuff.tokens = 0;
-  }
-}, 350);
-
-watch(() => stuff.text, fetchTokens);
 
 async function enter(event: KeyboardEvent) {
   if (!event.shiftKey) {
@@ -92,7 +78,6 @@ async function enter(event: KeyboardEvent) {
     </div>
 
     <div class="flex gap-2 p-4 py-6 items-center relative">
-      <span class="text-white absolute top-0 left-4">Tokens: {{ stuff.tokens }}</span>
       <span v-if="stuff.error" class="text-red-500 absolute top-0 left-1/2">{{
         stuff.error
         }}</span>

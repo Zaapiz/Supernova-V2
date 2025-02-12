@@ -8,9 +8,6 @@ const props = defineProps({
 <template>
   <div class="flex items-center">
     <div v-if="props.accountInfo" class="flex items-center pr-8 space-x-5">
-      <p class="font-poppins text-2xl text-white">
-        Tokens: {{ props.accountInfo.tokens }}
-      </p>
       <p class="font-poppins text-3xl text-white no-underline truncate max-w-[20ch]">
         {{ props.accountInfo.username }}
       </p>
