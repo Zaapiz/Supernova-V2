@@ -6,28 +6,28 @@ export const aiActions = {
   ask: defineAction({
     handler: async (input, context) => {
       try {
-
         const userid = await context.session?.get("userid");
 
-        const chatBackend = [{
-          role: "developer",
-          content: "Markdown optional",
-        }];
+        const chatBackend = [
+          {
+            role: "developer",
+            content: "Markdown optional",
+          },
+        ];
 
         if (userid && input.roomid) {
           const room = await getRoom(userid, input.roomid);
           if (room) {
-            room.rooms[0].chats.forEach((idk) => {
+            const chatsToAdd = room.rooms[0].chats.slice(-10);
+            chatsToAdd.forEach((idk) => {
               chatBackend.push(idk);
             });
           }
         }
-        chatBackend.push(
-          {
-            role: "user",
-            content: input.text,
-          }
-        );
+        chatBackend.push({
+          role: "user",
+          content: input.text,
+        });
 
         const completion = await client.chat.completions.create({
           // @ts-ignore
