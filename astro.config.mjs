@@ -9,10 +9,9 @@ import "dotenv/config";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
-    server:{
-      allowedHosts: [""]
-    }
-
+    server: {
+      allowedHosts: [""],
+    },
   },
   outDir: "dist/astro",
   integrations: [vue()],
@@ -23,14 +22,16 @@ export default defineConfig({
     mode: "middleware",
   }),
   experimental: {
-    session: {
-      driver: "mongodb",
-      options: {
-        //make the connection string work
-        connectionString: process.env.DATABASE_CONNECTION_STRING || "mongodb://mongodb:27017",
-        databaseName: process.env.DATABASE_NAME || "supernova",
-        collectionName: "session",
-      }
+    session: true,
+  },
+  session: {
+    driver: "mongodb",
+    options: {
+      //make the connection string work
+      connectionString:
+        process.env.DATABASE_CONNECTION_STRING || "mongodb://mongodb:27017",
+      databaseName: process.env.DATABASE_NAME || "supernova",
+      collectionName: "session",
     },
   },
   server: { port: 2000, host: true },

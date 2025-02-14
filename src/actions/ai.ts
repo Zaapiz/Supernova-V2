@@ -22,7 +22,7 @@ export const aiActions = {
           const room = await getRoom(userid, input.roomid);
           if (room) {
             const chatsToAdd = room.rooms[0].chats.slice(-10);
-            chatsToAdd.forEach((idk) => {
+            chatsToAdd.forEach((idk: { role: string; content: string; }) => {
               chatBackend.push(idk);
             });
           }
