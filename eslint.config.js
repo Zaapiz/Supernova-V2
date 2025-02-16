@@ -3,7 +3,7 @@ import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
 import { vueTsConfigs } from '@vue/eslint-config-typescript'
-import eslintConfigPrettier from "eslint-config-prettier";
+import eslintConfigPrettier from 'eslint-config-prettier'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import pluginAstro from 'eslint-plugin-astro'
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { actions } from "astro:actions";
+import { actions } from 'astro:actions'
 const props = defineProps({
   accountInfo: Object,
-});
+})
 </script>
 
 <template>

@@ -9,7 +9,8 @@
     "build-astro": "astro build",
     "build-node": "tsc -p tsconfig.node.json",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prettier": "prettier . --write"
   },
   "dependencies": {
     "@astrojs/node": "^9.1.0",

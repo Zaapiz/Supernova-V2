@@ -1,8 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,500&display=swap")
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,500&display=swap')
 layer(base);
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap")
-layer(base);
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap') layer(base);
+@import 'tailwindcss';
 
 @theme {
   --color-nav-bg: #343a40;
@@ -36,7 +35,9 @@ layer(base);
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     background-color: white;
   }
 }

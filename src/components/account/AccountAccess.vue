@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-import { actions } from "astro:actions";
+import { reactive } from 'vue'
+import { actions } from 'astro:actions'
 
 const stuff = reactive({
-  email: "",
-  username: "",
-  password: "",
-  header: "Login",
-  button: "Sign Up",
+  email: '',
+  username: '',
+  password: '',
+  header: 'Login',
+  button: 'Sign Up',
   respond: undefined as string | undefined,
-});
+})
 
-let select = "login";
+let select = 'login'
 
 function toggle(idk: string) {
-  stuff.respond = undefined;
-  const isSignUp = idk === "Sign Up";
-  stuff.header = isSignUp ? "Sign Up" : "Login";
-  stuff.button = isSignUp ? "Login" : "Sign Up";
-  select = isSignUp ? "signup" : "login";
+  stuff.respond = undefined
+  const isSignUp = idk === 'Sign Up'
+  stuff.header = isSignUp ? 'Sign Up' : 'Login'
+  stuff.button = isSignUp ? 'Login' : 'Sign Up'
+  select = isSignUp ? 'signup' : 'login'
 }
 
 async function signUp() {
@@ -26,39 +26,39 @@ async function signUp() {
     email: stuff.email,
     username: stuff.username,
     password: stuff.password,
-  });
+  })
 }
 
 async function login() {
   return await actions.accountActions.login({
     username: stuff.username,
     password: stuff.password,
-  });
+  })
 }
 
 async function post() {
   try {
-    let response;
-    if (select === "login") {
-      response = await login();
+    let response
+    if (select === 'login') {
+      response = await login()
     } else {
-      response = await signUp();
+      response = await signUp()
     }
     if (response.error) {
-      stuff.respond = String(response.error);
+      stuff.respond = String(response.error)
     } else {
-      const data = response.data;
-      if (data && data.status === "successful") {
-        window.location.assign("/ai");
+      const data = response.data
+      if (data && data.status === 'successful') {
+        window.location.assign('/ai')
       } else {
         if (data) {
-          stuff.respond = data.message;
+          stuff.respond = data.message
         }
       }
     }
   } catch (error) {
-    stuff.respond = "Network error occurred";
-    console.error("Login/Signup failed:", error);
+    stuff.respond = 'Network error occurred'
+    console.error('Login/Signup failed:', error)
   }
 }
 </script>
@@ -76,19 +76,38 @@ async function post() {
       </div>
       <form @submit.prevent="post">
         <div>
-          <input v-if="stuff.header === 'Sign Up'" v-model="stuff.email"
-            class="rounded-xl m-2 w-buttonr h-12 text-3xl  text-center" placeholder="Email" required maxlength="1000" />
+          <input
+            v-if="stuff.header === 'Sign Up'"
+            v-model="stuff.email"
+            class="rounded-xl m-2 w-buttonr h-12 text-3xl text-center"
+            placeholder="Email"
+            required
+            maxlength="1000"
+          />
         </div>
         <div>
-          <input v-model="stuff.username" class="rounded-xl m-2 w-buttonr h-12 text-3xl  text-center"
-            placeholder="Username" required maxlength="50" />
+          <input
+            v-model="stuff.username"
+            class="rounded-xl m-2 w-buttonr h-12 text-3xl text-center"
+            placeholder="Username"
+            required
+            maxlength="50"
+          />
         </div>
         <div>
-          <input v-model="stuff.password" class="rounded-xl m-2 w-buttonr h-12 text-3xl  text-center"
-            placeholder="Password" type="password" required maxlength="1000" />
+          <input
+            v-model="stuff.password"
+            class="rounded-xl m-2 w-buttonr h-12 text-3xl text-center"
+            placeholder="Password"
+            type="password"
+            required
+            maxlength="1000"
+          />
         </div>
-        <button type="submit"
-          class="rounded-xl m-2 bg-darker-blue font-rubik text-4xl text-center text-white w-buttonr h-12 hover:bg-darkerer-blue">
+        <button
+          type="submit"
+          class="rounded-xl m-2 bg-darker-blue font-rubik text-4xl text-center text-white w-buttonr h-12 hover:bg-darkerer-blue"
+        >
           Submit
         </button>
       </form>

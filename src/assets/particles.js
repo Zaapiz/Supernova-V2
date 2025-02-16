@@ -1,5 +1,5 @@
-import { loadBasic } from "@tsparticles/basic";
-import { tsParticles } from "@tsparticles/engine";
+import { loadBasic } from '@tsparticles/basic'
+import { tsParticles } from '@tsparticles/engine'
 
 // fullScreen: {
 //   enable: true,
@@ -9,7 +9,7 @@ import { tsParticles } from "@tsparticles/engine";
 export async function startParticles() {
   const options = {
     background: {
-      color: { value: "#000000" },
+      color: { value: '#000000' },
     },
     fullScreen: {
       enable: true,
@@ -17,14 +17,14 @@ export async function startParticles() {
     fpsLimit: 60,
     particles: {
       color: {
-        value: "#ffffff",
+        value: '#ffffff',
       },
       move: {
         enable: true,
         speed: 2,
-        direction: "right",
+        direction: 'right',
         outModes: {
-          default: "out",
+          default: 'out',
         },
       },
       number: {
@@ -43,7 +43,7 @@ export async function startParticles() {
         },
       },
       shape: {
-        type: "circle",
+        type: 'circle',
       },
       size: {
         value: { min: 1, max: 3 }, // Smaller particles for star effect
@@ -59,11 +59,11 @@ export async function startParticles() {
     },
     pauseOnBlur: true,
     pauseOnOutsideViewport: true,
-  };
+  }
 
-  await loadBasic(tsParticles);
+  await loadBasic(tsParticles)
   await tsParticles.load({
-    id: "particles-js",
+    id: 'particles-js',
     options: options,
-  });
+  })
 }
