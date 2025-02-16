@@ -7,7 +7,7 @@ import chat from "./AiChat.vue";
 
 const stuff = reactive({
   text: "",
-  error: "",
+  error: "" as string | boolean,
 });
 
 function addmessage(role: string, content: string) {

@@ -13,7 +13,7 @@ if (!accountid) {
   rooms = undefined;
 } else {
   const account = await getAccountById(accountid, {_id: 0, rooms: 1});
-  
+
   interface Chat {
     ai: boolean;
     text: string;

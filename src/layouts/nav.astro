@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import settingsImage from "../assets/pics/settings.webp";
-import "../assets/global.css";
-const forumEnabled = process.env.FORUM === "true";
-const aiEnabled = process.env.AI === "true";
+import { Image } from 'astro:assets'
+import settingsImage from '../assets/pics/settings.webp'
+import '../assets/global.css'
+const forumEnabled = process.env.FORUM === 'true'
+const aiEnabled = process.env.AI === 'true'
 ---
 
 <html lang="en">
@@ -68,16 +68,12 @@ const aiEnabled = process.env.AI === "true";
           <div class="flex items-center justify-center">
             <slot name="navbar" />
             <a href="/settings">
-              <Image
-                src={settingsImage}
-                class="size-14 cursor-pointer"
-                alt="settings"
-              />
+              <Image src={settingsImage} class="size-14 cursor-pointer" alt="settings" />
             </a>
           </div>
         </div>
       </nav>
-      <div class="z-10 h-full">
+      <div class="z-10 flex-1 overflow-auto">
         <slot />
       </div>
     </div>
@@ -85,15 +81,15 @@ const aiEnabled = process.env.AI === "true";
 </html>
 
 <script>
-  import { startParticles } from "../assets/particles";
-  import { setFavicon } from "../assets/stuff";
+  import { startParticles } from '../assets/particles'
+  import { setFavicon } from '../assets/stuff'
 
   function titlestuff() {
-    const title = localStorage.getItem("title") || "Google";
-    const icon = localStorage.getItem("icon") || "/pics/favicon/google.ico";
-    document.title = title;
-    setFavicon(icon);
+    const title = localStorage.getItem('title') || 'Google'
+    const icon = localStorage.getItem('icon') || '/pics/favicon/google.ico'
+    document.title = title
+    setFavicon(icon)
   }
-  startParticles();
-  titlestuff();
+  startParticles()
+  titlestuff()
 </script>
