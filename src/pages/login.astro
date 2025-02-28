@@ -1,6 +1,10 @@
 ---
 export const prerender = false;
 
+if (process.env.AI !== 'true') {
+  return Astro.redirect('/')
+}
+
 import Navbar from "../layouts/nav.astro";
 import AccountAccess from "../components/account/AccountAccess.vue";
 

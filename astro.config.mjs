@@ -32,6 +32,9 @@ export default defineConfig({
       databaseName: process.env.DATABASE_NAME || 'supernova',
       collectionName: 'session',
     },
+    cookie: {
+      name: "hjbksdfbhjksdfbhjkdsfbhjfgdssdf",
+    },
   },
   server: { port: 2000, host: true },
 })

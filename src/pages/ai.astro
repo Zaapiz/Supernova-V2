@@ -1,5 +1,10 @@
 ---
 export const prerender = false;
+
+if (process.env.AI !== 'true') {
+  return Astro.redirect('/')
+}
+
 import Navbar from "../layouts/navAccount.astro";
 import Chats from "../components/ai/ChatBox.vue";
 import Rooms from "../components/ai/Roombox.vue";

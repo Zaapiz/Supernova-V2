@@ -11,14 +11,12 @@ export const accountActions = {
         return {
           status: 'success',
           message: 'Logged out successfully',
-          refresh: true,
         }
       } catch (error) {
         console.warn(error)
         return {
           status: 'error',
           message: 'Logout failed',
-          refresh: true,
         }
       }
     },

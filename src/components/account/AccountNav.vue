@@ -3,6 +3,15 @@ import { actions } from 'astro:actions'
 const props = defineProps({
   accountInfo: Object,
 })
+
+async function logout() {
+  try {
+    await actions.accountActions.logout()
+    window.location.reload()
+  } catch (error) {
+    console.error('Failed to logout:', error)
+  }
+}
 </script>
 
 <template>
@@ -11,18 +20,13 @@ const props = defineProps({
       <p class="font-poppins text-3xl text-white no-underline truncate max-w-[20ch]">
         {{ props.accountInfo.username }}
       </p>
-      <button
-        class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-2xl hover:cursor-pointer"
-        @click="actions.accountActions.logout"
-      >
+      <button class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-2xl hover:cursor-pointer"
+        @click="logout">
         Logout
       </button>
     </div>
-    <a
-      v-else
+    <a v-else
       class="mr-8 text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-center no-underline text-2xl flex items-center justify-center"
-      href="/login"
-      >Login</a
-    >
+      href="/login">Login</a>
   </div>
 </template>

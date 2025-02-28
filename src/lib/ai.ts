@@ -3,7 +3,7 @@ import { account } from './db'
 import { ObjectId } from 'mongodb'
 
 export const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.AI_API_KEY,
 })
 
 export async function storeInDB(
@@ -13,6 +13,10 @@ export async function storeInDB(
 ) {
   if (!(accid instanceof ObjectId)) accid = new ObjectId(accid)
   if (roomid === null) {
+    const accountDoc = await account.findOne({ _id: accid })
+    if (accountDoc?.rooms?.length >= 30) {
+      return false
+    }
     roomid = new ObjectId()
     await account.updateOne(
       { _id: accid },

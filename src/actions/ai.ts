@@ -21,7 +21,7 @@ export const aiActions = {
         if (userid && input.roomid) {
           const room = await getRoom(userid, input.roomid)
           if (room) {
-            const chatsToAdd = room.rooms[0].chats.slice(-10)
+            const chatsToAdd = room.rooms[0].chats.slice(-6)
             chatsToAdd.forEach((idk: { role: string; content: string }) => {
               chatBackend.push(idk)
             })
@@ -35,7 +35,7 @@ export const aiActions = {
         const completion = await client.chat.completions.create({
           // @ts-ignore
           messages: chatBackend,
-          model: 'gpt-4o-mini',
+          model: String(process.env.AI_MODEL),
           max_tokens: 5000,
         })
         console.log(completion.choices[0])
