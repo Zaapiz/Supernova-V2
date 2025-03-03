@@ -5,128 +5,109 @@ export async function startParticles() {
   const options = {
     background: {
       color: {
-        value: '#000000'  // Deep space blue
-      }
+        value: '#000000',
+      },
     },
     fullScreen: {
       enable: true,
-      zIndex: -1
+      zIndex: -1,
     },
-    fpsLimit: 60,
+    fpsLimit: 45,
     particles: {
+      color: {
+        value: [
+          '#00ffff', // Cyan
+          '#4169e1', // Royal Blue
+          '#ffd700', // Gold
+          '#ff4500', // Orange Red
+          '#ff0000', // Pure Red
+          '#77ccff', // Light Blue
+          '#ff8800', // Dark Orange
+          '#6600cc', // Deep Purple
+          '#9933ff', // Bright Purple
+          '#0000cc', // Deep Blue
+          '#cc33ff', // Light Purple
+          '#0066ff', // Blue
+          '#00ccff', // Light Blue
+          '#ccffff', // Light Cyan
+        ],
+      },
       groups: {
         stars: {
           number: {
-            value: 200
-          },
-          color: {
-            value: ['#ffffff', '#77ccff', '#ff8800', '#ffff00']  // Different star colors
+            value: 320,
           },
           opacity: {
-            value: { min: 0.1, max: 1 }
+            value: { min: 0.3, max: 1 },
           },
           size: {
-            value: { min: 1, max: 3 }
+            value: { min: 1, max: 4 },
           },
           twinkle: {
             enable: true,
-            frequency: 0.05,
-            opacity: 1
-          }
+            frequency: 0.2,
+            opacity: 1,
+          },
+          position: {
+            x: 50,
+            y: 50,
+            radius: 20,
+          },
         },
-        // nebula: {
-        //   number: {
-        //     value: 20
-        //   },
-        //   color: {
-        //     value: ['#ff77ff', '#77ffff', '#ffff77']  // Nebula colors
-        //   },
-        //   shape: {
-        //     type: 'circle'
-        //   },
-        //   opacity: {
-        //     value: { min: 0.05, max: 0.2 }
-        //   },
-        //   size: {
-        //     value: { min: 15, max: 50 }
-        //   },
-        //   move: {
-        //     enable: true,
-        //     speed: 0.2,
-        //     direction: 'none',
-        //     random: true,
-        //     straight: false,
-        //     outModes: 'bounce'
-        //   },
-        //   blur: {
-        //     enable: true,
-        //     value: 5
-        //   }
-        // }
       },
       number: {
-        value: 220,  // Total particles
+        value: 400,
         density: {
           enable: true,
-          area: 800
-        }
+          area: 800,
+        },
       },
       move: {
         enable: true,
-        speed: { min: 0.1, max: 0.5 },
-        direction: 'none',
+        speed: { min: 0.2, max: 2 },
+        direction: 'outside',
         random: true,
         straight: false,
         outModes: {
-          default: 'out'
-        }
+          default: 'out',
+        },
+        attract: {
+          enable: false,
+        },
+        center: {
+          x: 50,
+          y: 50,
+          radius: 80,
+        },
       },
       opacity: {
-        value: { min: 0.1, max: 1 },
-        animation: {
-          enable: true,
-          speed: 0.3,
-          sync: false,
-          minimumValue: 0.1
-        }
-      },
-      size: {
-        value: { min: 1, max: 3 },
+        value: { min: 0.3, max: 1 },
         animation: {
           enable: true,
           speed: 0.5,
           sync: false,
-          minimumValue: 0.5
-        }
+          minimumValue: 0.1,
+        },
       },
-      links: {
-        enable: false
-      }
-    },
-    interactivity: {
-      events: {
-        onHover: {
+      size: {
+        value: { min: 1, max: 4 },
+        animation: {
           enable: true,
-          mode: 'bubble'
-        }
+          speed: 1,
+          sync: false,
+          minimumValue: 0.5,
+        },
       },
-      modes: {
-        bubble: {
-          distance: 200,
-          size: 4,
-          duration: 2,
-          opacity: 0.8
-        }
-      }
     },
+
     pauseOnBlur: true,
     pauseOnOutsideViewport: true,
-    detectRetina: true
+    detectRetina: true,
   }
 
   await loadBasic(tsParticles)
   await tsParticles.load({
     id: 'particles-js',
-    options: options
+    options: options,
   })
 }

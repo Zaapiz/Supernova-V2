@@ -65,7 +65,7 @@ function go() {
         <input
           v-model="data.text"
           type="text"
-          class="w-96 sm:w-textw h-16 m-2 font-poppins rounded-3xl text-2xl placeholder:text-gray-500"
+          class="w-96 md:w-[45rem] lg:w-textw h-16 m-2 font-poppins rounded-3xl text-2xl placeholder:text-gray-500"
           placeholder="Search the web freely"
         />
       </form>

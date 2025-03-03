@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, nextTick } from 'vue'
 import { actions } from 'astro:actions'
 import { items } from './store'
 
@@ -12,6 +12,13 @@ const stuff = reactive({
 
 function addmessage(role: string, content: string) {
   items.chats.push({ role, content })
+  nextTick(() => {
+    const chatContainer = document.querySelector('.overflow-y-auto')
+    chatContainer?.scrollTo({
+      top: chatContainer.scrollHeight,
+      behavior: 'smooth'
+    })
+  })
 }
 
 function debounce(fn: Function, delay: number) {
@@ -64,12 +71,8 @@ async function enter(event: KeyboardEvent) {
 <template>
   <div class="flex-1 flex flex-col overflow-x-hidden">
     <div class="flex-1 p-4 space-y-4 overflow-y-auto">
-      <chat
-        v-for="(message, index) in items.chats"
-        :key="index"
-        :ai="message.role !== 'user'"
-        :stuff="message.content"
-      />
+      <chat v-for="(message, index) in items.chats" :key="index" :ai="message.role !== 'user'"
+        :stuff="message.content" />
       <div v-if="items.chats.length === 0" class="flex justify-center">
         <div class="text-3xl font-poppins rounded-lg px-4 py-2 break-words bg-blue-600 text-white">
           Enter a Prompt
@@ -85,13 +88,8 @@ async function enter(event: KeyboardEvent) {
     <div class="flex gap-2 p-4 py-6 items-center relative">
       <span v-if="stuff.error" class="text-red-500 absolute top-0 left-1/2">{{ stuff.error }}</span>
       <div class="relative flex-1">
-        <textarea
-          v-model="stuff.text"
-          placeholder="Type your message"
-          maxlength="2000"
-          class="w-full px-4 py-4 rounded-lg focus:outline-hidden resize-none"
-          @keydown.enter="enter"
-        />
+        <textarea v-model="stuff.text" placeholder="Type your message" maxlength="2000"
+          class="w-full px-4 py-4 rounded-lg focus:outline-hidden resize-none" @keydown.enter="enter" />
         <span class="text-black absolute bottom-4 right-4">{{ stuff.text.length }} / 2000</span>
       </div>
       <!-- <button @click="post" class="px-10 py-4 bg-title-blue text-white rounded-lg hover:bg-blue-600 transition-colors">
