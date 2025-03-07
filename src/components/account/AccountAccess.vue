@@ -111,7 +111,7 @@ async function post() {
           Submit
         </button>
       </form>
-      <button class="text-white hover:text-blue-600 m-2" @click="toggle(stuff.button)">
+      <button class="text-white hover:text-blue-600 m-2 hover:cursor-pointer" @click="toggle(stuff.button)">
         {{ stuff.button }}
       </button>
     </div>
