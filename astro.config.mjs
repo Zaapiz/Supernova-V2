@@ -26,6 +26,7 @@ export default defineConfig({
   },
   session: {
     driver: 'mongodb',
+    ttl: 60 * 60 * 12, // 12 hour
     options: {
       //make the connection string work
       connectionString: process.env.DATABASE_CONNECTION_STRING || 'mongodb://mongodb:27017',
