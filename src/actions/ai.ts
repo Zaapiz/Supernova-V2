@@ -66,7 +66,7 @@ export const aiActions = {
           message: completion.choices[0].message.content,
           roomid: roomid,
           error: false,
-          chats: num + 1,
+          chats: num,
         }
       } catch (error) {
         console.warn(error)

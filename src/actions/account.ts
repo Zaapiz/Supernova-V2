@@ -7,7 +7,7 @@ export const accountActions = {
   logout: defineAction({
     handler: async (input, context) => {
       try {
-        context.session?.destroy()
+        context.session?.set('userid', undefined)
         return {
           status: 'success',
           message: 'Logged out successfully',
