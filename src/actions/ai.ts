@@ -9,7 +9,16 @@ export const aiActions = {
         if (input.text.length > 2000) {
           return { error: 'Too many characters' }
         }
-        const userid = await context.session?.get('userid')
+        let num = await context.session?.get('numchat')
+        if (!num) {
+          context.session?.set('numchat', 1)
+          num = 1
+        } else if (num >= Number(process.env.MAX_CHATS)) {
+          return { error: 'Max chats reached' }
+        } else {
+          num++
+          context.session?.set('numchat', num)
+        }
 
         const chatBackend = [
           {
@@ -17,7 +26,7 @@ export const aiActions = {
             content: 'Markdown optional',
           },
         ]
-
+        const userid = await context.session?.get('userid')
         if (userid && input.roomid) {
           const room = await getRoom(userid, input.roomid)
           if (room) {
@@ -57,6 +66,7 @@ export const aiActions = {
           message: completion.choices[0].message.content,
           roomid: roomid,
           error: false,
+          chats: num + 1,
         }
       } catch (error) {
         console.warn(error)

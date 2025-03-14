@@ -1,33 +1,40 @@
 ---
-export const prerender = false;
+export const prerender = false
 
 if (process.env.AI !== 'true') {
   return Astro.redirect('/')
 }
 
-import Navbar from "../layouts/navAccount.astro";
-import Chats from "../components/ai/ChatBox.vue";
-import Rooms from "../components/ai/Roombox.vue";
-import { getAccountById } from "../lib/account";
-import Loader from "../components/loader.astro";
-import type { ObjectId } from "mongodb";
+import Navbar from '../layouts/navAccount.astro'
+import Chats from '../components/ai/ChatBox.vue'
+import Rooms from '../components/ai/Roombox.vue'
+import { getAccountById } from '../lib/account'
+import Loader from '../components/loader.astro'
+import type { ObjectId } from 'mongodb'
 
-let rooms;
-const accountid = await Astro.session?.get("userid");
+let rooms
+const accountid = await Astro.session?.get('userid')
+let num = await Astro.session?.get('numchat')
+
+if (!num) {
+  Astro.session?.set('numchat', 0)
+  num = 0
+}
+
 if (!accountid) {
-  rooms = undefined;
+  rooms = undefined
 } else {
-  const account = await getAccountById(accountid, {_id: 0, rooms: 1});
+  const account = await getAccountById(accountid, { _id: 0, rooms: 1 })
 
   interface Chat {
-    ai: boolean;
-    text: string;
+    ai: boolean
+    text: string
   }
 
   interface Room {
-    roomid: ObjectId;
-    name: string;
-    chats: Chat[];
+    roomid: ObjectId
+    name: string
+    chats: Chat[]
   }
 
   rooms = account
@@ -35,14 +42,14 @@ if (!accountid) {
         roomid: room.roomid.toString(),
         name: room.name,
       }))
-    : undefined;
+    : undefined
 }
 ---
 
 <Navbar>
   <div class="h-full flex flex-col bg-gray-700 overflow-hidden">
     <div class="flex-1 flex overflow-hidden">
-      <Chats client:load>
+      <Chats chats={num} max={Number(process.env.MAX_CHATS)} client:load>
         <Loader size="30" />
       </Chats>
       <Rooms rooms={rooms} client:load />

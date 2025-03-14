@@ -5,9 +5,15 @@ import { items } from './store'
 
 import chat from './AiChat.vue'
 
+const props = defineProps({
+  chats: Number,
+  max:Number
+})
+
 const stuff = reactive({
   text: '',
   error: '' as string | boolean,
+  chats: props.chats
 })
 
 function addmessage(role: string, content: string) {
@@ -55,6 +61,7 @@ async function enter(event: KeyboardEvent) {
               items.rooms.push({ roomid: response.data.roomid, name: 'Unnamed Room' })
               items.selectedRoom = response.data.roomid
             }
+            stuff.chats = response.data?.chats;
           } else stuff.error = response.data.error
           console.log(response)
         } catch (error) {
@@ -87,6 +94,7 @@ async function enter(event: KeyboardEvent) {
 
     <div class="flex gap-2 p-4 py-6 items-center relative">
       <span v-if="stuff.error" class="text-red-500 absolute top-0 left-1/2">{{ stuff.error }}</span>
+      <span class="text-black absolute right-4 top-0">{{ `${stuff.chats}/${props.max}` }}</span>
       <div class="relative flex-1">
         <textarea v-model="stuff.text" placeholder="Type your message" maxlength="2000"
           class="w-full px-4 py-4 rounded-lg focus:outline-hidden resize-none" @keydown.enter="enter" />
