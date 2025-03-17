@@ -4,6 +4,7 @@ import settingsImage from '../assets/pics/settings.webp'
 import '../assets/global.css'
 const forumEnabled = process.env.FORUM === 'true'
 const aiEnabled = process.env.AI === 'true'
+const report = process.env.REPORT === 'true'
 ---
 
 <html lang="en">
@@ -61,6 +62,16 @@ const aiEnabled = process.env.AI === 'true'
                   href="/ai"
                 >
                   AI
+                </a>
+              )
+            }
+            {
+              report && (
+                <a
+                  class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+                  href="/report"
+                >
+                  Report
                 </a>
               )
             }

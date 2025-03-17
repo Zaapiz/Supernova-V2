@@ -38,6 +38,7 @@
     "ldrs": "^1.1.2",
     "marked": "^15.0.7",
     "mongodb": "^6.14.2",
+    "node-fetch": "^3.3.2",
     "npm-run-all2": "^7.0.2",
     "openai": "^4.87.3",
     "tailwindcss": "^4.0.14",
