@@ -17,15 +17,15 @@ function toggle() {
 </script>
 
 <template>
-  <!-- add animation later -->
-  <div :class="show ? 'w-80' : 'w-10'" class="border-l-2 border-black bg-gray-600">
-    <div v-show="!show" class="flex justify-center p-4">
-      <span class="material-symbols-outlined hover:cursor-pointer" @click="toggle">
+  <div :class="show ? 'w-80' : 'w-10'"
+    class="transition-all duration-300 ease-in-out border-l-2 border-black bg-gray-600">
+    <div v-show="!show" class="flex p-4 justify-center">
+      <span class="material-symbols-outlined hover:cursor-pointer absolute right-2" @click="toggle">
         chevron_backward </span>
     </div>
     <div v-show="show" class="flex justify-between items-center p-4 bg-gray-600 border-b-2 border-black">
       <h2 class="text-2xl font-semibold text-white">Chat Rooms:</h2>
-      <span class="material-symbols-outlined hover:cursor-pointer" @click="toggle">
+      <span class="material-symbols-outlined hover:cursor-pointer absolute right-2" @click="toggle">
         chevron_forward </span>
     </div>
     <div v-show="show" class="overflow-y-auto h-full">
@@ -34,3 +34,10 @@ function toggle() {
     </div>
   </div>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
+}
+</style>
