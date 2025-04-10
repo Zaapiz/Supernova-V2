@@ -1,0 +1,21 @@
+---
+import Navbar from '../layouts/nav.astro'
+---
+
+<Navbar>
+  <div class="h-half flex flex-col justify-center items-center">
+    <h1 class="text-white">Use this area to report bugs</h1>
+    <textarea class=" w-3/4 px-4 py-4 rounded-lg focus:outline-hidden resize-none" id="text"
+    ></textarea>
+  </div>
+</Navbar>
+
+<script>
+  import { actions } from 'astro:actions'
+  document.getElementById('text')?.addEventListener('keydown', async (event) => {
+    if (event.key === 'Enter') {
+      const text = (document.getElementById('text') as HTMLTextAreaElement).value
+      const response = await actions.webhook.report({ text: text })
+    }
+  })
+</script>

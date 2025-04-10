@@ -5,7 +5,9 @@ import LoadingScreen from "../../components/loader.astro";
 const url = Astro.url.pathname.substring(7) + Astro.url.search;
 ---
 
-<LoadingScreen />
+<div class="fixed inset-0 flex justify-center items-center">
+  <LoadingScreen size="120" />
+</div>
 <iframe id="iframe" class="w-screen h-screen absolute z-10"></iframe>
 
 <script>

@@ -1,8 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import settingsImage from "../assets/pics/settings.webp";
-import "../assets/global.css";
-const forumEnabled = process.env.FORUM === 'true';
+import { Image } from 'astro:assets'
+import settingsImage from '../assets/pics/settings.webp'
+import '../assets/global.css'
+const forumEnabled = process.env.FORUM === 'true'
+const aiEnabled = process.env.AI === 'true'
+const report = process.env.REPORT === 'true'
 ---
 
 <html lang="en">
@@ -10,90 +12,95 @@ const forumEnabled = process.env.FORUM === 'true';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit"
     />
   </head>
   <body>
-    <nav class="bg-nav-bg z-20">
-      <div class="flex flex-nowrap justify-between p-5">
-        <div class="space-x-5">
-          <a
-            class="mx-2 font-rubik text-5xl text-title-blue hover:text-darker-blue no-underline"
-            href="/"
-          >
-            Supernova
-          </a>
-          <a
-            class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-            href="/search"
-          >
-            Search
-          </a>
-          <a
-            class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-            href="/apps"
-          >
-            Apps
-          </a>
-          <a
-            class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-            href="/games"
-          >
-            Games
-          </a>
-          {
-            forumEnabled && (
-              <a
-                class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-                href="/forum"
-              >
-                Forum
-              </a>
-            )
-          }
-        </div>
-
-        <!--  <a v-if="store.config.ai" class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
-              href="/ai">
-              AI
+    <div class="flex flex-col h-screen">
+      <nav class="bg-nav-bg z-20">
+        <div class="flex flex-nowrap justify-between p-5">
+          <div class="space-x-5">
+            <a
+              class="mx-2 font-rubik text-5xl text-title-blue hover:text-darker-blue no-underline"
+              href="/"
+            >
+              Supernova
+            </a>
+            <a
+              class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+              href="/search"
+            >
+              Search
+            </a>
+            <a
+              class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+              href="/apps"
+            >
+              Apps
+            </a>
+            <a
+              class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+              href="/games"
+            >
+              Games
+            </a>
+            {
+              forumEnabled && (
+                <a
+                  class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+                  href="/forum"
+                >
+                  Forum
+                </a>
+              )
+            }
+            {
+              aiEnabled && (
+                <a
+                  class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+                  href="/ai"
+                >
+                  AI
+                </a>
+              )
+            }
+            {
+              report && (
+                <a
+                  class="font-poppins text-3xl text-white hover:text-darker-blue no-underline"
+                  href="/report"
+                >
+                  Report
+                </a>
+              )
+            }
+          </div>
+          <div class="flex items-center justify-center">
+            <slot name="navbar" />
+            <a href="/settings">
+              <Image src={settingsImage} class="size-14 cursor-pointer" alt="settings" />
             </a>
           </div>
-          <div class="flex items-center">
-            <div v-if="store.username && router.currentRoute.value.path === '/ai'" class="flex items-center pr-8 space-x-5">
-              <p class="font-poppins text-2xl text-white">
-                Tokens: {{ store.tokens }}
-              </p>
-              <p class="font-poppins text-3xl text-white no-underline">
-                {{ store.username }}
-              </p>
-              <button v-if="store.username" class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12"
-                @click="logout()">
-                Logout
-              </button>
-            </div> -->
-        <a href="/settings">
-          <Image
-            src={settingsImage}
-            class="size-14 cursor-pointer"
-            alt="settings"
-          />
-        </a>
+        </div>
+      </nav>
+      <div class="z-10 flex-1 overflow-auto">
+        <slot />
       </div>
-    </nav>
+    </div>
   </body>
-
-  <slot />
 </html>
 
 <script>
-  import { setFavicon } from "../assets/stuff";
+  import { startParticles } from '../assets/particles'
+  import { setFavicon } from '../assets/stuff'
 
   function titlestuff() {
-    const title = localStorage.getItem("title") || "Google";
-    const icon = localStorage.getItem("icon") || "/pics/favicon/google.ico";
-    document.title = title;
-    setFavicon(icon);
+    const title = localStorage.getItem('title') || 'Google'
+    const icon = localStorage.getItem('icon') || '/pics/favicon/google.ico'
+    document.title = title
+    setFavicon(icon)
   }
-  titlestuff();
+  startParticles()
+  titlestuff()
 </script>

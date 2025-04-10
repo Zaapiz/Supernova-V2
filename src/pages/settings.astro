@@ -1,6 +1,8 @@
 ---
 import Navbar from "../layouts/nav.astro";
-import SettingsPage from "../components/settings.vue";
+import ProxySettings from "../components/settings/ProxySettings.vue";
+import IconSettings from "../components/settings/IconSettings.vue";
+import TitleSettings from "../components/settings/TitleSettings.vue";
 import classroomImage from "../assets/pics/classroom.webp";
 import driveImage from "../assets/pics/drive.webp";
 import gmailImage from "../assets/pics/gmail.webp";
@@ -8,12 +10,13 @@ import googleImage from "../assets/pics/google.webp";
 ---
 
 <Navbar>
-  <SettingsPage
+  <ProxySettings client:load />
+  <IconSettings
     classroomimg={classroomImage.src}
     driveimg={driveImage.src}
     gmailimg={gmailImage.src}
     googleimg={googleImage.src}
     client:load
-
   />
+  <TitleSettings client:load />
 </Navbar>

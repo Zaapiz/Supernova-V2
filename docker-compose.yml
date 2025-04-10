@@ -4,7 +4,7 @@ services:
     build:
       context: ./
     ports:
-      - "8080:8080"
+      - '8080:8080'
     depends_on:
       - mongodb
 
@@ -12,4 +12,6 @@ services:
     restart: always
     image: mongo
     volumes:
-      - ./mongo:/data/db
+      - mongodb:/usr/src/app
+volumes:
+  mongodb:
