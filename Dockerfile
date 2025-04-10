@@ -7,4 +7,4 @@ COPY ./ ./
 RUN npm ci --omit=dev
 RUN npm run build
 
-CMD [ "node", "./dist/index.js", "Docker" ]
+CMD [ "node", "./dist/index.js" ]
