@@ -21,9 +21,6 @@ export default defineConfig({
   adapter: node({
     mode: 'middleware',
   }),
-  experimental: {
-    session: true,
-  },
   session: {
     driver: 'mongodb',
     ttl: 60 * 60 * 12, // 12 hour
