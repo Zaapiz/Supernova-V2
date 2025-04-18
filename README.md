@@ -13,7 +13,7 @@ Supernova is an Ultraviolet and Scramjet based proxy
 ```bash
 git clone https://github.com/NXWeb-Group/Supernova-V2.git
 cd Supernova-V2
-sudo docker compose up -d
+docker compose up -d
 ```
 
 ### Terminal:

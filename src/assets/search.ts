@@ -1,5 +1,4 @@
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux'
-import '/scramjet/scramjet.controller.js'
 
 let scramjet: ScramjetController
 let conn: BareMuxConnection
@@ -9,11 +8,14 @@ try {
   scramjet = new ScramjetController({
     prefix: '/service/scramjet/',
     files: {
-      wasm: '/scramjet/scramjet.wasm.js',
+      wasm: '/scramjet/scramjet.wasm.wasm',
       worker: '/scramjet/scramjet.worker.js',
       client: '/scramjet/scramjet.client.js',
       shared: '/scramjet/scramjet.shared.js',
       sync: '/scramjet/scramjet.sync.js',
+    },
+    flags: {
+      rewriterLogs: false,
     },
   })
 } catch (err) {
