@@ -21,7 +21,7 @@ docker compose up -d
 **Prerequisites:**
 
 - [Node.js](https://nodejs.org/) 
-- Optional: [MongoDB](https://www.mongodb.com/try/download/community-edition)
+- Only needed with AI: [MongoDB](https://www.mongodb.com/try/download/community-edition)
 
 ### Start
 

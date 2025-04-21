@@ -27,18 +27,6 @@ function addmessage(role: string, content: string) {
   })
 }
 
-function debounce(fn: Function, delay: number) {
-  let timeoutId: NodeJS.Timeout
-  return function () {
-    if (timeoutId) {
-      clearTimeout(timeoutId)
-    }
-    timeoutId = setTimeout(() => {
-      fn()
-    }, delay)
-  }
-}
-
 async function enter(event: KeyboardEvent) {
   if (!event.shiftKey) {
     event.preventDefault()
@@ -49,6 +37,9 @@ async function enter(event: KeyboardEvent) {
           stuff.text = ''
 
           addmessage('user', String(items.isSending))
+          if (!actions?.aiActions) {
+            throw new Error('AI actions not available');
+          }
           const response = await actions.aiActions.ask({
             text: items.isSending,
             roomid: items.selectedRoom,

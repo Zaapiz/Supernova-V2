@@ -6,6 +6,9 @@ const props = defineProps({
 
 async function logout() {
   try {
+    if (!actions?.accountActions) {
+      throw new Error('AI actions not available');
+    }
     await actions.accountActions.logout()
     window.location.reload()
   } catch (error) {
