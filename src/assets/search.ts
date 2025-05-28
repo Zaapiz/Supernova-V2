@@ -31,7 +31,7 @@ export async function initTransport(transportsel: string) {
     if (transportsel == 'epoxy') {
       await conn.setTransport('/epoxy/index.mjs', [{ wisp: wispUrl }])
     } else if (transportsel == 'libcurl') {
-      await conn.setTransport('/libcurl/index.mjs', [{ wisp: wispUrl }])
+      await conn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }])
     } else {
       await conn.setTransport('/bareasmodule/index.mjs', [bareUrl])
     }
