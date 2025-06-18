@@ -9,7 +9,7 @@ async function logout() {
     if (!actions?.accountActions) {
       throw new Error('AI actions not available');
     }
-    const status = await actions.accountActions.logout("random data that should not be necessary but idk")
+    const status = await actions.accountActions.logout({idk: "random data that should not be necessary but idk"})
     if (status.data?.status === 'success') {
       window.location.reload()
     }
