@@ -4,7 +4,7 @@ import { account as dbAccount } from '../lib/db'
 import { signupValidate, getAccountByUser } from '../lib/account'
 
 export const accountActions = {
-  logout: defineAction({
+  end: defineAction({
     handler: async (input, context) => {
       try {
         context.session?.set('userid', undefined)
